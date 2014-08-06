@@ -13,6 +13,34 @@ function cawp_plugin_options() {
     if (!current_user_can('manage_options')) {
         wp_die(__('You do  not have sufficient permissions to access this page'));
     }
+
+    if (isset($_POST['cawp_submit'])) {
+        if (isset($_POST['cawp_server'])) {
+            $cawp_config_manager->set('ca_host', $_POST['cawp_server']);
+        }
+        if (isset($_POST['cawp_user'])) {
+            $cawp_config_manager->set('ca_username', $_POST['cawp_user']);
+        }
+        if (isset($_POST['cawp_password']) && isset($_POST['cawp_password2'])) {
+            if ($_POST['cawp_password'] == $_POST['cawp_password2']) {
+                $cawp_config_manager->set('ca_password', $_POST['cawp_password']);
+            }
+        }
+        if (isset($_POST['cawp_display_objects'])) {
+            $cawp_config_manager->set('include_objects',
+                $_POST['cawp_display_objects'] == "true" ? true : false);
+        }
+        if (isset($_POST['cawp_display_collections'])) {
+            $cawp_config_manager->set('include_collections',
+                $_POST['cawp_display_collections'] == "true" ? true : false);
+        }
+        if (isset($_POST['cawp_display_public_only'])) {
+            $cawp_config_manager->set('only_display_public_items',
+                $_POST['cawp_display_public_only'] == "true" ? true : false);
+        }
+        $cawp_config_manager->save_options();
+    }
+
     ?>
 
     <div class="wrap">
@@ -39,22 +67,22 @@ function cawp_plugin_options() {
                 <tr>
                     <td>Display Objects:</td>
                     <td>
-                        <input type="radio" name="cawp_display_objects" value="yes" <?php if ($cawp_config_manager->get('include_objects') == true) {echo 'checked';} ?> >Yes
-                        <input type="radio" name="cawp_display_objects" value="no" <?php if ($cawp_config_manager->get('include_objects') == false) {echo 'checked';} ?> >No
+                        <input type="radio" name="cawp_display_objects" value="true" <?php if ($cawp_config_manager->get('include_objects') == true) {echo 'checked';} ?> >Yes
+                        <input type="radio" name="cawp_display_objects" value="false" <?php if ($cawp_config_manager->get('include_objects') == false) {echo 'checked';} ?> >No
                     </td>
                 </tr>
                 <tr>
                     <td>Display Collections:</td>
                     <td>
-                        <input type="radio" name="cawp_display_collections" value="yes" <?php if ($cawp_config_manager->get('include_collections') == true) {echo 'checked';} ?> >Yes
-                        <input type="radio" name="cawp_display_collections" value="no" <?php if ($cawp_config_manager->get('include_collections') == false) {echo 'checked';} ?> >No
+                        <input type="radio" name="cawp_display_collections" value="true" <?php if ($cawp_config_manager->get('include_collections') == true) {echo 'checked';} ?> >Yes
+                        <input type="radio" name="cawp_display_collections" value="false" <?php if ($cawp_config_manager->get('include_collections') == false) {echo 'checked';} ?> >No
                     </td>
                 </tr>
                 <tr>
                     <td>Display Only Public Objects:</td>
                     <td>
-                        <input type="radio" name="cawp_display_public_only" value="yes" <?php if ($cawp_config_manager->get('only_display_public_items') == true) {echo 'checked';} ?> >Yes
-                        <input type="radio" name="cawp_display_public_only" value="no" <?php if ($cawp_config_manager->get('only_display_public_items') == false) {echo 'checked';} ?> >No
+                        <input type="radio" name="cawp_display_public_only" value="true" <?php if ($cawp_config_manager->get('only_display_public_items') == true) {echo 'checked';} ?> >Yes
+                        <input type="radio" name="cawp_display_public_only" value="false" <?php if ($cawp_config_manager->get('only_display_public_items') == false) {echo 'checked';} ?> >No
                     </td>
                 </tr>
                 </tbody>
