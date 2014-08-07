@@ -44,12 +44,13 @@ function cawp_plugin_options() {
     ?>
 
     <div class="wrap">
-        <h3>Collective Access Interface Configuration</h3>
+        <?php screen_icon(); ?>
+        <h2>Collective Access Interface Configuration</h2>
         <form action="" method="post" id="cawp-conf">
             <table class="form-table">
                 <tbody>
                 <tr>
-                    <td>Server:</td>
+                    <td>Collective Access Server:</td>
                     <td><input id="cawp_server" name="cawp_server" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_host') ?>"></td>
                 </tr>
                 <tr>
@@ -59,10 +60,6 @@ function cawp_plugin_options() {
                 <tr>
                     <td>Database User Password:</td>
                     <td><input id="cawp_password" name="cawp_password" type="password" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_password') ?>"></td>
-                </tr>
-                <tr>
-                    <td>Reconfirm Password:</td>
-                    <td><input id="cawp_password2" name="cawp_password2" type="password" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_password') ?>"></td>
                 </tr>
                 <tr>
                     <td>Display Objects:</td>
@@ -92,7 +89,7 @@ function cawp_plugin_options() {
             </p>
         </form>
 
-        <h3>Collective Access Connectivity</h3>
+        <h2>Collective Access Connectivity</h2>
     </div>
 
     <?php
