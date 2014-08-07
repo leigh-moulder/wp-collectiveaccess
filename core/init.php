@@ -38,15 +38,14 @@ function cawp_get_configuration(){
 Main functionality
  ************************************************/
 
-register_activation_hook(CAWP_PLUGIN_FILE, 'cawp_activation');
 /**
  * Activates the plugin and stores a default set of data in the system if this
  * is the first time being activated.
  */
+register_activation_hook(CAWP_PLUGIN_FILE, 'cawp_activation');
 function cawp_activation() {
     require CAWP_DIRECTORY . '/core/activation.php';
 }
-
 
 if ($cawp_config_manager->options['installation_complete']) {
     function cawp_init() {

@@ -1,6 +1,6 @@
 <?php
 
- global $cawp_config_manager;
+global $cawp_config_manager;
 
 // Attempt to load any already saved settings
 $cawp_config_manager->load_options(CAWP_OPTIONS);
