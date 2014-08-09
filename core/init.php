@@ -3,21 +3,20 @@
 /***********************************************
 Configuration
  ************************************************/
-global $cawp_config_manager;
-$default_options = array(
-    'ca_host' => 'localhost',
-    'ca_username' => 'collective_access',
-    'ca_password' => 'collective_access_password',
-    'include_objects' => true,
-    'include_collections' => true,
-    'only_display_public_items' => true,
-    'installation_complete' => false
-);
-
 require CAWP_DIRECTORY . '/includes/config-manager.php';
+global $cawp_config_manager;
 $cawp_config_manager = new cawpConfigurationManager(
     CAWP_OPTIONS,
-    $default_options
+    array(
+        'ca_host' => 'localhost',
+        'ca_username' => 'collective_access',
+        'ca_password' => 'collective_access_password',
+        'include_objects' => true,
+        'include_collections' => true,
+        'only_display_public_items' => true,
+        'installation_complete' => false,
+        'db_connection_valid' => false
+    )
 );
 
 
@@ -42,18 +41,18 @@ Main functionality
  * Activates the plugin and stores a default set of data in the system if this
  * is the first time being activated.
  */
-register_activation_hook(CAWP_PLUGIN_FILE, 'cawp_activation');
-function cawp_activation() {
-    require CAWP_DIRECTORY . '/core/activation.php';
+register_activation_hook(CAWP_PLUGIN_FILE, 'cawp_activation_hook');
+function cawp_activation_hook() {
+    include_once CAWP_DIRECTORY . '/core/activation.php';
 }
 
 if ($cawp_config_manager->options['installation_complete']) {
+    add_action('init', 'cawp_init');
     function cawp_init() {
         if (is_admin()) {
             require_once CAWP_DIRECTORY . '/core/admin.php';
         }
     }
-    add_action('init', 'cawp_init');
 }
 
 

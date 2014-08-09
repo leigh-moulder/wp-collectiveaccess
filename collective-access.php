@@ -12,21 +12,18 @@ License: GPLv2
 
 // Path to this file
 if (!defined('CAWP_PLUGIN_FILE')) {
-    define('CAWP_PLUGIN_FILE', __FILE__);
+//    define('CAWP_PLUGIN_FILE', __FILE__);
+    define('CAWP_PLUGIN_FILE', '/wp-collectiveaccess/collective-access.php');
 }
 
 // Path to the plugin directory
 if (!defined('CAWP_DIRECTORY')) {
-    define('CAWP_DIRECTORY', plugin_dir_path(__FILE__));
+    define('CAWP_DIRECTORY', dirname(__FILE__));
 }
 
 if (!defined('CAWP_OPTIONS')) {
     define('CAWP_OPTIONS', 'cawp_options');
 }
 
-if (is_admin()) {
-    require_once CAWP_DIRECTORY . 'core/admin.php';
-}
-
 //Load the actual plugin
-require CAWP_DIRECTORY . '/core/init.php';
+require 'core/init.php';
