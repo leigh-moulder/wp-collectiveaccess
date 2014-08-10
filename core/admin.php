@@ -14,17 +14,19 @@ function cawp_plugin_options() {
         wp_die(__('You do  not have sufficient permissions to access this page'));
     }
 
+    // Process a 'Save Changed' submit
     if (isset($_POST['cawp_submit'])) {
         if (isset($_POST['cawp_server'])) {
             $cawp_config_manager->set('ca_host', $_POST['cawp_server']);
         }
+        if (isset($_POST['cawp_database'])) {
+            $cawp_config_manager->set('ca_database', $_POST['cawp_database']);
+        }
         if (isset($_POST['cawp_user'])) {
             $cawp_config_manager->set('ca_username', $_POST['cawp_user']);
         }
-        if (isset($_POST['cawp_password']) && isset($_POST['cawp_password2'])) {
-            if ($_POST['cawp_password'] == $_POST['cawp_password2']) {
-                $cawp_config_manager->set('ca_password', $_POST['cawp_password']);
-            }
+        if (isset($_POST['cawp_password'])) {
+            $cawp_config_manager->set('ca_password', $_POST['cawp_password']);
         }
         if (isset($_POST['cawp_display_objects'])) {
             $cawp_config_manager->set('include_objects',
@@ -41,6 +43,16 @@ function cawp_plugin_options() {
         $cawp_config_manager->save_options();
     }
 
+    // Process a 'Test Connection' submit
+    if (isset($_POST['cawp_test_conn'])) {
+        require CAWP_DIRECTORY . '/includes/database-conn.php';
+        $db = new cawpDBConn($cawp_config_manager->get('ca_host'), $cawp_config_manager->get('ca_database'),
+            $cawp_config_manager->get('ca_username'), $cawp_config_manager->get('ca_password'));
+
+        $cawp_config_manager->set('db_connection_valid', $db->is_db_connected());
+        $cawp_config_manager->save_options();
+    }
+
     ?>
 
     <div class="wrap">
@@ -52,6 +64,10 @@ function cawp_plugin_options() {
                 <tr>
                     <td>Collective Access Server:</td>
                     <td><input id="cawp_server" name="cawp_server" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_host') ?>"></td>
+                </tr>
+                <tr>
+                    <td>Collective Access Database:</td>
+                    <td><input id="cawp_database" name="cawp_database" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_database') ?>"></td>
                 </tr>
                 <tr>
                     <td>Database User:</td>
@@ -89,7 +105,33 @@ function cawp_plugin_options() {
             </p>
         </form>
 
+        <?php screen_icon(); ?>
         <h2>Collective Access Connectivity</h2>
+        <form action="" method="post" id="cawp-test-conn">
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <td>Database Connection Status:</td>
+                        <td>
+                            <?php
+                            if ($cawp_config_manager->get('db_connection_valid')) {
+                                ?>
+                                <p>Connected</p>
+                                <?php
+                            }
+                            else { ?>
+                                <p>Not Connected</p>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="submit">
+                <input type="submit" name="cawp_test_conn" id="cawp_test_conn" class="button button-primary" value="Test Connection">
+            </p>
+        </form>
     </div>
 
     <?php

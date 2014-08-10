@@ -9,6 +9,7 @@ $cawp_config_manager = new cawpConfigurationManager(
     CAWP_OPTIONS,
     array(
         'ca_host' => 'localhost',
+        'ca_database' => 'collective_access',
         'ca_username' => 'collective_access',
         'ca_password' => 'collective_access_password',
         'include_objects' => true,
