@@ -140,13 +140,3 @@ function cawp_plugin_options() {
     <?php
 }
 
-
-function cawp_plugin_action_links( $links, $file) {
-    if ($file == plugin_basename(dirname(__FILE__) . '/collective-access.php')) {
-        $links[] = '<a href="' . admin_url( 'admin.php?page=cawp-config' ) . '">'.__( 'Settings' ).'</a>';
-    }
-
-    return $links;
-}
-add_filter('plugin_action_links', 'cawp_plugin_action_links', 10, 2);
-
