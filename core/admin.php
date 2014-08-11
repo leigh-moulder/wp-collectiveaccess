@@ -5,7 +5,7 @@ global $cawp_config_manager;
 add_action('admin_menu', 'cawp_admin_menu');
 function cawp_admin_menu() {
     add_options_page('Collective Access Interface Settings', 'Collective Access Link',
-                     'manage_options', 'cawp_identifier', 'cawp_plugin_options');
+                     'manage_options', 'cawp_settings', 'cawp_plugin_options');
 }
 
 function cawp_plugin_options() {
@@ -41,6 +41,10 @@ function cawp_plugin_options() {
                 $_POST['cawp_display_public_only'] == "true" ? true : false);
         }
         $cawp_config_manager->save_options();
+
+        $base_url = remove_query_arg( array('_wpnonce', 'noheader', 'updated', 'error', 'action', 'message') );
+        wp_redirect( add_query_arg( array( 'settings-updated' => true), $base_url ) );
+
     }
 
     // Process a 'Test Connection' submit
@@ -53,12 +57,18 @@ function cawp_plugin_options() {
         $cawp_config_manager->save_options();
     }
 
+    //Show a confirmation message when settings are saved.
+    if ( !empty($_GET['settings-updated']) ){
+        echo '<div id="message" class="updated fade"><p><strong>',__('Settings saved.', 'cawp_settings'), '</strong></p></div>';
+
+    }
+
     ?>
 
     <div class="wrap">
         <?php screen_icon(); ?>
         <h2>Collective Access Interface Configuration</h2>
-        <form action="" method="post" id="cawp-conf">
+        <form action="<?php echo admin_url('options-general.php?page=cawp_settings&noheader=1');?>" method="post" id="cawp-conf">
             <table class="form-table">
                 <tbody>
                 <tr>
@@ -107,23 +117,16 @@ function cawp_plugin_options() {
 
         <?php screen_icon(); ?>
         <h2>Collective Access Connectivity</h2>
+        <?php
+        $connection_state = ($cawp_config_manager->get('db_connection_valid') == true) ? 'Connected' : 'Disconnected';
+        ?>
         <form action="" method="post" id="cawp-test-conn">
             <table class="form-table">
                 <tbody>
                     <tr>
                         <td>Database Connection Status:</td>
                         <td>
-                            <?php
-                            if ($cawp_config_manager->get('db_connection_valid')) {
-                                ?>
-                                <p>Connected</p>
-                                <?php
-                            }
-                            else { ?>
-                                <p>Not Connected</p>
-                                <?php
-                            }
-                            ?>
+                            <input id="cawp_conn_state" name="cawp_conn_state" type="text" disabled size="30" class="regular-text readonly" value="<?php echo $connection_state ?>">
                         </td>
                     </tr>
                 </tbody>
