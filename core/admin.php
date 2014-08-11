@@ -55,12 +55,14 @@ function cawp_plugin_options() {
 
         $cawp_config_manager->set('db_connection_valid', $db->is_db_connected());
         $cawp_config_manager->save_options();
+
+        $base_url = remove_query_arg( array('_wpnonce', 'noheader', 'updated', 'error', 'action', 'message') );
+        wp_redirect($base_url);
     }
 
     //Show a confirmation message when settings are saved.
     if ( !empty($_GET['settings-updated']) ){
         echo '<div id="message" class="updated fade"><p><strong>',__('Settings saved.', 'cawp_settings'), '</strong></p></div>';
-
     }
 
     ?>
@@ -68,7 +70,7 @@ function cawp_plugin_options() {
     <div class="wrap">
         <?php screen_icon(); ?>
         <h2>Collective Access Interface Configuration</h2>
-        <form action="<?php echo admin_url('options-general.php?page=cawp_settings&noheader=1');?>" method="post" id="cawp-conf">
+        <form id="cawp-conf" method="post" action="<?php echo admin_url('options-general.php?page=cawp_settings&noheader=1');?>" >
             <table class="form-table">
                 <tbody>
                 <tr>
@@ -120,7 +122,7 @@ function cawp_plugin_options() {
         <?php
         $connection_state = ($cawp_config_manager->get('db_connection_valid') == true) ? 'Connected' : 'Disconnected';
         ?>
-        <form action="" method="post" id="cawp-test-conn">
+        <form id="cawp-test-conn" method="post" action="<?php echo admin_url('options-general.php?page=cawp_settings&noheader=1');?>" >
             <table class="form-table">
                 <tbody>
                     <tr>
