@@ -1,5 +1,7 @@
 <?php
 
+require_once CAWP_DIRECTORY . '/includes/database-conn.php';
+
 global $cawp_config_manager;
 
 add_action('admin_menu', 'cawp_admin_menu');
@@ -42,6 +44,8 @@ function cawp_plugin_options() {
         }
         $cawp_config_manager->save_options();
 
+        cawpDBConn::getInstance()->refreshDBConn();
+
         $base_url = remove_query_arg( array('_wpnonce', 'noheader', 'updated', 'error', 'action', 'message') );
         wp_redirect( add_query_arg( array( 'settings-updated' => true), $base_url ) );
 
@@ -49,10 +53,7 @@ function cawp_plugin_options() {
 
     // Process a 'Test Connection' submit
     if (isset($_POST['cawp_test_conn'])) {
-        require CAWP_DIRECTORY . '/includes/database-conn.php';
-        $db = new cawpDBConn($cawp_config_manager->get('ca_host'), $cawp_config_manager->get('ca_database'),
-            $cawp_config_manager->get('ca_username'), $cawp_config_manager->get('ca_password'));
-
+        $db = cawpDBConn::getInstance();
         $cawp_config_manager->set('db_connection_valid', $db->is_db_connected());
         $cawp_config_manager->save_options();
 
