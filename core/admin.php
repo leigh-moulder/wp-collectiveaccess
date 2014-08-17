@@ -42,13 +42,15 @@ function cawp_plugin_options() {
             $cawp_config_manager->set('only_display_public_items',
                 $_POST['cawp_display_public_only'] == "true" ? true : false);
         }
+        if (isset($_POST['cawp_ca_url'])) {
+            $cawp_config_manager->set('ca_url', $_POST['cawp_ca_url']);
+        }
         $cawp_config_manager->save_options();
 
         cawpDBConn::getInstance()->refreshDBConn();
 
         $base_url = remove_query_arg( array('_wpnonce', 'noheader', 'updated', 'error', 'action', 'message') );
         wp_redirect( add_query_arg( array( 'settings-updated' => true), $base_url ) );
-
     }
 
     // Process a 'Test Connection' submit
@@ -110,6 +112,10 @@ function cawp_plugin_options() {
                         <input type="radio" name="cawp_display_public_only" value="true" <?php if ($cawp_config_manager->get('only_display_public_items') == true) {echo 'checked';} ?> >Yes
                         <input type="radio" name="cawp_display_public_only" value="false" <?php if ($cawp_config_manager->get('only_display_public_items') == false) {echo 'checked';} ?> >No
                     </td>
+                </tr>
+                <tr>
+                    <td>Collective Access Site URL:</td>
+                    <td><input id="cawp_ca_url" name="cawp_ca_url" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_url') ?>"/></td>
                 </tr>
                 </tbody>
             </table>
