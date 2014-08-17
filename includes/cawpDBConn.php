@@ -60,6 +60,8 @@ if (!class_exists('cawpDBConn')) {
 
 
         public function get_objects($public_only = true) {
+            require_once CAWP_DIRECTORY . '/includes/cawpObject.php';
+
             $query = "SELECT objects.object_id as id, objects.source_id as source_id, objects.type_id as type_id, objects.idno as idno, " .
                      "objects.access as access, labels.name as name " .
                      "FROM ca_objects as objects, ca_object_labels as labels " .
@@ -70,19 +72,22 @@ if (!class_exists('cawpDBConn')) {
             if ($public_only) {
                 $query = $query . "AND objects.access=1";
             }
-            else {
-                $query = $query . "AND objects.access<>1";
-            }
 
             $results = $this->db->get_results($query);
+            $objects = array();
             foreach ($results as $result) {
-
+                $object = new cawpObject($result->id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+                array_push($objects, $object);
             }
+
+            return $objects;
         }
 
 
         public function get_collections($public_only = true) {
 
+            $collections = array();
+            return $collections;
         }
     }
 

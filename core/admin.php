@@ -16,6 +16,9 @@ function cawp_plugin_options() {
         wp_die(__('You do  not have sufficient permissions to access this page'));
     }
 
+    // grab the database object
+    $db = cawpDBConn::getInstance();
+
     // Process a 'Save Changed' submit
     if (isset($_POST['cawp_submit'])) {
         if (isset($_POST['cawp_server'])) {
@@ -55,7 +58,6 @@ function cawp_plugin_options() {
 
     // Process a 'Test Connection' submit
     if (isset($_POST['cawp_test_conn'])) {
-        $db = cawpDBConn::getInstance();
         $cawp_config_manager->set('db_connection_valid', $db->is_db_connected());
         $cawp_config_manager->save_options();
 
@@ -66,6 +68,12 @@ function cawp_plugin_options() {
     //Show a confirmation message when settings are saved.
     if ( !empty($_GET['settings-updated']) ){
         echo '<div id="message" class="updated fade"><p><strong>',__('Settings saved.', 'cawp_settings'), '</strong></p></div>';
+    }
+
+    // if database connection is valid, determine how many objects will be shown
+    if ($cawp_config_manager->get('db_connection_valid')) {
+        $objects = $db->get_objects($cawp_config_manager->get('only_display_public_items'));
+        $collections = $db->get_collections($cawp_config_manager->get('only_display_public_items'));
     }
 
     ?>
@@ -134,9 +142,15 @@ function cawp_plugin_options() {
                 <tbody>
                     <tr>
                         <td>Database Connection Status:</td>
-                        <td>
-                            <input id="cawp_conn_state" name="cawp_conn_state" type="text" disabled size="30" class="regular-text readonly" value="<?php echo $connection_state ?>">
-                        </td>
+                        <td><input id="cawp_conn_state" name="cawp_conn_state" type="text" disabled size="30" class="regular-text readonly" value="<?php echo $connection_state ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td>Number of Objects To Display:</td>
+                        <td><input id="cawp_objects_found" name="cawp_objects_found" type="text" disabled size="30" class="regular-text readonly" value="<?php echo count($objects) ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td>Number of Collections To Display:</td>
+                        <td><input id="cawp_collections_found" name="cawp_collections_found" type="text" disabled size="30" class="regular-text readonly" value="<?php echo count($collections) ?>" /></td>
                     </tr>
                 </tbody>
             </table>
