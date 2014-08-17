@@ -1,6 +1,6 @@
 <?php
 
-require_once CAWP_DIRECTORY . '/includes/database-conn.php';
+require_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
 
 global $cawp_config_manager;
 

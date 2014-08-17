@@ -36,7 +36,6 @@ if (!class_exists('cawpDBConn')) {
             catch (Exception $e) {
                 echo $e->getMessage();
             }
-
         }
 
         /**
@@ -55,12 +54,34 @@ if (!class_exists('cawpDBConn')) {
         }
 
 
-        function get_objects($public_only = true) {
-
+        public function getDB() {
+            return $this->db;
         }
 
 
-        function get_collections($public_only = true) {
+        public function get_objects($public_only = true) {
+            $query = "SELECT objects.object_id as id, objects.source_id as source_id, objects.type_id as type_id, objects.idno as idno, " .
+                     "objects.access as access, labels.name as name " .
+                     "FROM ca_objects as objects, ca_object_labels as labels " .
+                     "WHERE objects.object_id = labels.object_id " .
+                     "AND objects.deleted=0 " .
+                     "AND labels.is_preferred=1 ";
+
+            if ($public_only) {
+                $query = $query . "AND objects.access=1";
+            }
+            else {
+                $query = $query . "AND objects.access<>1";
+            }
+
+            $results = $this->db->get_results($query);
+            foreach ($results as $result) {
+
+            }
+        }
+
+
+        public function get_collections($public_only = true) {
 
         }
     }

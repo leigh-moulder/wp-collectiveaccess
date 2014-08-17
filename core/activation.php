@@ -11,7 +11,7 @@ $cawp_config_manager->save_options();
 
 // if we're reloading the values from the database, check database connectivity
 if (is_array($cawp_config_manager->loaded_values)) {
-    require_once CAWP_DIRECTORY . '/includes/database-conn.php';
+    require_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
 
     $cawp_config_manager->set('db_connection_valid',
                                 cawpDBConn::getInstance()->is_db_connected());

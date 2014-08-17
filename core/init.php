@@ -3,7 +3,7 @@
 /***********************************************
 Configuration
  ************************************************/
-require CAWP_DIRECTORY . '/includes/config-manager.php';
+require CAWP_DIRECTORY . '/includes/cawpConfigurationManager.php';
 global $cawp_config_manager;
 $cawp_config_manager = new cawpConfigurationManager(
     CAWP_OPTIONS,
