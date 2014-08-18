@@ -12,10 +12,11 @@ if (!class_exists('cawpConstants')) {
         const OBJECT_SOURCES = "object_sources";
 
         // image constants
+        const IMAGE_MEDIUM = "medium";
+        const IMAGE_ORIGINAL = "original";
         const IMAGE_PREVIEW = "preview";
         const IMAGE_PRIMARY = "return_primary_only";
         const IMAGE_SMALL = "small";
-        const IMAGE_MEDIUM = "medium";
     }
 
 }

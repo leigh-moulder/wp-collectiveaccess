@@ -60,6 +60,10 @@ if (!class_exists('cawpDBConn')) {
 
 
         public function get_objects($public_only = true) {
+            if (!$this->is_db_connected()) {
+                return array();
+            }
+
             require_once CAWP_DIRECTORY . '/includes/cawpObject.php';
 
             $query = "SELECT objects.object_id as id, objects.source_id as source_id, objects.type_id as type_id, objects.idno as idno, " .
@@ -85,6 +89,9 @@ if (!class_exists('cawpDBConn')) {
 
 
         public function get_collections($public_only = true) {
+            if (!$this->is_db_connected()) {
+                return array();
+            }
 
             $collections = array();
             return $collections;

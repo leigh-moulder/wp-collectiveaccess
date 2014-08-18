@@ -16,9 +16,6 @@ function cawp_plugin_options() {
         wp_die(__('You do  not have sufficient permissions to access this page'));
     }
 
-    // grab the database object
-    $db = cawpDBConn::getInstance();
-
     // Process a 'Save Changed' submit
     if (isset($_POST['cawp_submit'])) {
         if (isset($_POST['cawp_server'])) {
@@ -48,9 +45,17 @@ function cawp_plugin_options() {
         if (isset($_POST['cawp_ca_url'])) {
             $cawp_config_manager->set('ca_url', $_POST['cawp_ca_url']);
         }
+        if (isset($_POST['cawp_ca_img_url'])) {
+            $cawp_config_manager->set('ca_img_url_path', $_POST['cawp_ca_img_url']);
+        }
         $cawp_config_manager->save_options();
 
+        // update the database connection information with the new settings
         cawpDBConn::getInstance()->refreshDBConn();
+
+        // automatically test the connection
+        $cawp_config_manager->set('db_connection_valid', cawpDBConn::getInstance()->is_db_connected());
+        $cawp_config_manager->save_options();
 
         $base_url = remove_query_arg( array('_wpnonce', 'noheader', 'updated', 'error', 'action', 'message') );
         wp_redirect( add_query_arg( array( 'settings-updated' => true), $base_url ) );
@@ -58,24 +63,30 @@ function cawp_plugin_options() {
 
     // Process a 'Test Connection' submit
     if (isset($_POST['cawp_test_conn'])) {
-        $cawp_config_manager->set('db_connection_valid', $db->is_db_connected());
+        $cawp_config_manager->set('db_connection_valid', cawpDBConn::getInstance()->is_db_connected());
         $cawp_config_manager->save_options();
 
         $base_url = remove_query_arg( array('_wpnonce', 'noheader', 'updated', 'error', 'action', 'message') );
         wp_redirect($base_url);
     }
 
-    //Show a confirmation message when settings are saved.
+    // Show a confirmation message when settings are saved.
     if ( !empty($_GET['settings-updated']) ){
         echo '<div id="message" class="updated fade"><p><strong>',__('Settings saved.', 'cawp_settings'), '</strong></p></div>';
     }
 
     // if database connection is valid, determine how many objects will be shown
+    $objects = array();
+    $collections = array();
     if ($cawp_config_manager->get('db_connection_valid')) {
-        $objects = $db->get_objects($cawp_config_manager->get('only_display_public_items'));
-        $collections = $db->get_collections($cawp_config_manager->get('only_display_public_items'));
-    }
+        if ($cawp_config_manager->get('include_objects')) {
+            $objects = cawpDBConn::getInstance()->get_objects($cawp_config_manager->get('only_display_public_items'));
+        }
 
+        if ($cawp_config_manager->get('include_collections')) {
+            $collections = cawpDBConn::getInstance()->get_collections($cawp_config_manager->get('only_display_public_items'));
+        }
+    }
     ?>
 
     <div class="wrap">
@@ -125,6 +136,10 @@ function cawp_plugin_options() {
                     <td>Collective Access Site URL:</td>
                     <td><input id="cawp_ca_url" name="cawp_ca_url" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_url') ?>"/></td>
                 </tr>
+                <tr>
+                    <td>Collective Access Image path:</td>
+                    <td><input id="cawp_ca_img_url" name="cawp_ca_img_url" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_img_url_path') ?>"/></td>
+                </tr>
                 </tbody>
             </table>
             <p class="submit">
@@ -136,6 +151,8 @@ function cawp_plugin_options() {
         <h2>Collective Access Connectivity</h2>
         <?php
         $connection_state = ($cawp_config_manager->get('db_connection_valid') == true) ? 'Connected' : 'Disconnected';
+        $objects_displayed = ($cawp_config_manager->get('db_connection_valid') == true) ? count($objects) : 'Database connection must be established';
+        $collections_displayed = ($cawp_config_manager->get('db_connection_valid') == true) ? count($collections) : 'Database connection must be established';
         ?>
         <form id="cawp-test-conn" method="post" action="<?php echo admin_url('options-general.php?page=cawp_settings&noheader=1');?>" >
             <table class="form-table">
@@ -146,11 +163,11 @@ function cawp_plugin_options() {
                     </tr>
                     <tr>
                         <td>Number of Objects To Display:</td>
-                        <td><input id="cawp_objects_found" name="cawp_objects_found" type="text" disabled size="30" class="regular-text readonly" value="<?php echo count($objects) ?>" /></td>
+                        <td><input id="cawp_objects_found" name="cawp_objects_found" type="text" disabled size="30" class="regular-text readonly" value="<?php echo $objects_displayed ?>" /></td>
                     </tr>
                     <tr>
                         <td>Number of Collections To Display:</td>
-                        <td><input id="cawp_collections_found" name="cawp_collections_found" type="text" disabled size="30" class="regular-text readonly" value="<?php echo count($collections) ?>" /></td>
+                        <td><input id="cawp_collections_found" name="cawp_collections_found" type="text" disabled size="30" class="regular-text readonly" value="<?php echo $collections_displayed ?>" /></td>
                     </tr>
                 </tbody>
             </table>
