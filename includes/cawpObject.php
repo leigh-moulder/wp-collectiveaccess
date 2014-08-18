@@ -89,10 +89,9 @@ if (!class_exists('cawpObject')) {
 
             $db = cawpDBConn::getInstance()->getDB();
             $results = $db->get_results(
-                "SELECT caor.representation_id, caoor.is_primary, caor.status, l.name, caor.media, caor.media_metadata, caor.type_id, caor.idno, caor.mimetype, caor.original_filename, caoor.rank " .
+                "SELECT caor.representation_id, caoor.is_primary, caor.status, caor.media, caor.media_metadata, caor.type_id, caor.idno, caor.mimetype, caor.original_filename, caoor.rank " .
                 "FROM ca_object_representations caor " .
                 "INNER JOIN ca_objects_x_object_representations AS caoor ON caor.representation_id = caoor.representation_id " .
-                "LEFT JOIN ca_locales AS l ON caor.locale_id = l.locale_id " .
                 "WHERE caoor.object_id = " . $this->id . " " .
                 "AND deleted = 0 " .
                 "ORDER BY caoor.rank");
