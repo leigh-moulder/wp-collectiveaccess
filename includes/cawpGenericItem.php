@@ -1,5 +1,8 @@
 <?php
 
+include_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
+include_once CAWP_DIRECTORY . '/includes/cawpDBUtils.php';
+include_once CAWP_DIRECTORY . '/includes/cawpImage.php';
 
 class cawpGenericItem {
 
@@ -9,6 +12,9 @@ class cawpGenericItem {
     protected $idno;
     protected $access;
     protected $title;
+
+    protected $primaryImage = null;
+    protected $alternateImages = array();
 
 
     function __construct($id, $source, $type, $idno, $access, $title) {
@@ -21,8 +27,29 @@ class cawpGenericItem {
     }
 
     /**
+     * Returns a list of alternate titles for an object
+     * @return array
+     */
+    function getAltTitles($table, $column){
+        $db = cawpDBConn::getInstance()->getDB();
+        $results = $db->get_results(
+            "SELECT name FROM " . $table .
+            " WHERE " . $column . " = " . $this->id .
+            " AND is_preferred = 0");
+
+        $titles = array();
+        foreach ($results as $result) {
+            array_push($titles, $result->name);
+        }
+
+        return $titles;
+    }
+
+
+    /**
      * Returns the name corresponding to the object's type.
      *
+     * @param $item_type
      * @return Name of the Object type, or null if not found.
      */
     function getType($item_type) {
@@ -37,9 +64,11 @@ class cawpGenericItem {
         return (!is_null($results)) ? $results->item_value : null;
     }
 
+
     /**
      * Returns the name corresponding to the object's source_type.
      *
+     * @param $item_sources
      * @return Source_Type name, or null if not found.
      */
     function getSource($item_sources) {
@@ -52,6 +81,39 @@ class cawpGenericItem {
             "AND list_items.item_id=" . $this->source_id);
 
         return (!is_null($results)) ? $results->item_value : null;
+    }
+
+
+    function getImagesFromDatabase($representation_table, $column) {
+        $db = cawpDBConn::getInstance()->getDB();
+        $results = $db->get_results(
+            "SELECT caor.representation_id, caoor.is_primary, caor.status, caor.media, caor.media_metadata, caor.type_id, caor.idno, caor.mimetype, caor.original_filename, caoor.rank " .
+            "FROM ca_object_representations caor " .
+            "INNER JOIN " . $representation_table . " AS caoor ON caor.representation_id = caoor.representation_id " .
+            "WHERE caoor." . $column . " = " . $this->id . " " .
+            "AND deleted = 0 " .
+            "AND access = 1 " .
+            "ORDER BY caoor.rank");
+
+        $altImages = array();
+        foreach ($results as $result) {
+            $media = cawpDBUtils::unSerializeForDatabase($result->media);
+            $image = new cawpImage($result->representation_id, $result->original_filename, $media);
+
+            if ($result->is_primary) {
+                $this->primaryImage = $image;
+            }
+            else {
+                array_push($altImages, $image);
+            }
+        }
+
+        $this->alternateImages = $altImages;
+    }
+
+
+    function getPrimaryImageURL($size = "original") {
+        return $this->primaryImage->getURL($size);
     }
 
 } 
