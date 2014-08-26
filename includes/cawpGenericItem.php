@@ -116,4 +116,20 @@ class cawpGenericItem {
         return $this->primaryImage->getURL($size);
     }
 
+
+    function getMetaData($element_code, $item_id, $table_num) {
+        $db = cawpDBConn::getInstance()->getDB();
+        $query = "SELECT attribute_values.value_longtext1 " .
+            "FROM ca_metadata_elements as elements, ca_attributes as attributes, ca_attribute_values as attribute_values " .
+            "WHERE elements.element_code='" . $element_code . "' " .
+            "AND elements.element_id = attributes.element_id " .
+            "AND attributes.attribute_id = attribute_values.attribute_id " .
+            "AND attributes.row_id=" . $item_id . " " .
+            "AND attributes.table_num=" . $table_num;
+
+        $result = $db->get_row($query);
+
+        return $result->value_longtext1;
+    }
+
 } 
