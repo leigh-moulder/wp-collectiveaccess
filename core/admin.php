@@ -1,6 +1,8 @@
 <?php
 
 require_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
+require_once CAWP_DIRECTORY . '/includes/cawpObjectService.php';
+require_once CAWP_DIRECTORY . '/includes/cawpCollectionService.php';
 
 global $cawp_config_manager;
 
@@ -80,11 +82,11 @@ function cawp_plugin_options() {
     $collections = array();
     if ($cawp_config_manager->get('db_connection_valid')) {
         if ($cawp_config_manager->get('include_objects')) {
-            $objects = cawpDBConn::getInstance()->get_objects($cawp_config_manager->get('only_display_public_items'));
+            $objects = cawpObjectService::get_objects($cawp_config_manager->get('only_display_public_items'));
         }
 
         if ($cawp_config_manager->get('include_collections')) {
-            $collections = cawpDBConn::getInstance()->get_collections($cawp_config_manager->get('only_display_public_items'));
+            $collections = cawpCollectionService::get_collections($cawp_config_manager->get('only_display_public_items'));
         }
     }
     ?>

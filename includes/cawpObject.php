@@ -53,7 +53,7 @@ class cawpObject extends cawpGenericItem {
     }
 
 
-    function getDimensions() {
+    function getMetadata() {
         $db = cawpDBConn::getInstance()->getDB();
         $query = "SELECT elements.element_code, a_values.value_longtext1 " .
             "FROM ca_attribute_values a_values, ca_attributes attributes, ca_metadata_elements elements " .
@@ -61,17 +61,18 @@ class cawpObject extends cawpGenericItem {
             "AND a_values.element_id = elements.element_id " .
             "AND attributes.table_num = " . cawpConstants::$CA_TABLES['ca_objects'] . " " .
             "AND attributes.row_id = " . $this->id . " " .
-            "AND attributes.element_id = (SELECT element_id from ca_metadata_elements WHERE element_code='work_dimensions')";
+            "AND attributes.element_id IN " .
+            "(SELECT element_id FROM ca_metadata_elements " .
+            "WHERE element_code='work_dimensions' OR element_code='work_medium' " .
+            "OR element_code='colorType' OR element_code='work_description' " .
+            "OR element_code='date')";
 
         $results = $db->get_results($query);
-        $dim = array();
+        $metadata = array();
         foreach ($results as $result) {
-            $dim[$result->element_code] = $result->value_longtext1;
+            $metadata[$result->element_code] = $result->value_longtext1;
         }
 
-        return $dim;
+        return $metadata;
     }
-
-
-
 }
