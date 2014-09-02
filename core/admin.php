@@ -18,7 +18,7 @@ function cawp_plugin_options() {
         wp_die(__('You do  not have sufficient permissions to access this page'));
     }
 
-    // Process a 'Save Changed' submit
+    // Process a 'Save Changes' submit
     if (isset($_POST['cawp_submit'])) {
         if (isset($_POST['cawp_server'])) {
             $cawp_config_manager->set('ca_host', $_POST['cawp_server']);
@@ -93,7 +93,7 @@ function cawp_plugin_options() {
 
     <div class="wrap">
         <?php screen_icon(); ?>
-        <h2>Collective Access Interface Configuration</h2>
+        <h2>Collective Access Database Configuration</h2>
         <form id="cawp-conf" method="post" action="<?php echo admin_url('options-general.php?page=cawp_settings&noheader=1');?>" >
             <table class="form-table">
                 <tbody>
@@ -110,7 +110,7 @@ function cawp_plugin_options() {
                     <td><input id="cawp_user" name="cawp_user" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_username') ?>"></td>
                 </tr>
                 <tr>
-                    <td>Database User Password:</td>
+                    <td>Database Password:</td>
                     <td><input id="cawp_password" name="cawp_password" type="password" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_password') ?>"></td>
                 </tr>
                 <tr>
@@ -144,6 +144,7 @@ function cawp_plugin_options() {
                 </tr>
                 </tbody>
             </table>
+            <?php wp_nonce_field('cawp_Admin_Page'); ?>
             <p class="submit">
                 <input type="submit" name="cawp_submit" id="cawp_submit" class="button button-primary" value="Save Changes">
             </p>
