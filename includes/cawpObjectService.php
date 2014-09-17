@@ -3,6 +3,10 @@
 include_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
 require_once CAWP_DIRECTORY . '/includes/cawpObject.php';
 
+/**
+ * Class cawpObjectService
+ * Provides methods to query the database for Objects.
+ */
 class cawpObjectService {
 
     public static function get_objects($public_only = true) {

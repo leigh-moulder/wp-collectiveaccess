@@ -3,7 +3,10 @@
 include_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
 require_once CAWP_DIRECTORY . '/includes/cawpCollection.php';
 
-
+/**
+ * Class cawpCollectionService
+ * Provides methods to query the database for Collections.
+ */
 class cawpCollectionService {
 
 

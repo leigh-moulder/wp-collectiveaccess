@@ -3,12 +3,13 @@
 include_once CAWP_DIRECTORY . '/includes/cawpGenericItem.php';
 include_once CAWP_DIRECTORY . '/includes/cawpConstants.php';
 
-/*
-* This class represents a Collective Access Object.  It does not include
-* all object attributes stored in the database, only the ones
-* necessary.
-*/
 
+/**
+ * Class cawpObject
+ * This class represents a Collective Access Object.  It does not include
+ * all object attributes stored in the database, only the ones
+ * necessary.
+ */
 class cawpObject extends cawpGenericItem {
 
 

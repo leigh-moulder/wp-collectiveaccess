@@ -16,6 +16,12 @@ if (!defined('CAWP_PLUGIN_FILE')) {
     define('CAWP_PLUGIN_FILE', '/wp-collectiveaccess/collective-access.php');
 }
 
+// URL to this file
+if (!defined('CAWP_PLUGIN_URL')) {
+    define('CAWP_PLUGIN_URL',
+            plugins_url($path, '/wp-collectiveaccess/collective-access.php'));
+}
+
 // Path to the plugin directory
 if (!defined('CAWP_DIRECTORY')) {
     define('CAWP_DIRECTORY', dirname(__FILE__));

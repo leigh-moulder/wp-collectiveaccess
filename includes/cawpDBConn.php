@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class cawpDBConn
+ * Provides an singleton interface for the database connection.
+ */
 class cawpDBConn {
 
     private static $instance = null;

@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Class cawpConstants
  * This class defines a set of constants that are used throughout the
  * Collective Access system.
  */

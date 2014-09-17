@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class cawpImage
+ * Represents a CollectiveAccess image.
+ * This class does not include all attributes of an image, simply the ones needed
+ * by this plugin.
+ */
 class cawpImage {
     private $id;
     private $original_name;

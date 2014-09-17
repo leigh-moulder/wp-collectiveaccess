@@ -1,0 +1,32 @@
+.cawp_slider {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+/*Navigation */
+.cawp_slider .cawp_next {
+    position: absolute;
+    right: 0px;
+    top: 45%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background: transparent url(next.png) no-repeat 0 0;
+    z-index: 10;
+}
+
+.cawp_slider .cawp_prev {
+    position: absolute;
+    left: 0px;
+    top: 45%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background: transparent url(prev.png) no-repeat 0 0;
+    z-index: 10;
+}
+
+.cawp_slider .cawp_item {
+    padding: 5px;
+}

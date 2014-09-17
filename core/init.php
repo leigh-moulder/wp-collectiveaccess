@@ -49,6 +49,16 @@ function cawp_activation_hook() {
     include_once CAWP_DIRECTORY . '/core/activation.php';
 }
 
+/**
+ * Register stylesheets and scripts
+ */
+add_action('wp_enqueue_scripts', 'cawp_add_scripts');
+add_action('admin_enqueue_scripts', 'cawp_add_scripts');
+function cawp_add_scripts() {
+    wp_enqueue_style('cawp_styles', CAWP_PLUGIN_URL . '/css/cawpStyle.css');
+}
+
+
 if ($cawp_config_manager->options['installation_complete']) {
     add_action('init', 'cawp_init');
     function cawp_init() {
@@ -59,3 +69,7 @@ if ($cawp_config_manager->options['installation_complete']) {
 }
 
 
+/***********************************************
+Shortcut functionality
+ ************************************************/
+require_once CAWP_DIRECTORY . '/core/shortcode.php';
