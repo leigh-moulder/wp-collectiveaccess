@@ -17,6 +17,7 @@ class cawpConstants {
     const IMAGE_PREVIEW = "preview";
     const IMAGE_PRIMARY = "return_primary_only";
     const IMAGE_SMALL = "small";
+    const IMAGE_TILEPIC = "tilepic";
 
     // CollectiveAccess table numbers.  This mirrors datamodel.conf
     public static $CA_TABLES = array(

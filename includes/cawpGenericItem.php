@@ -26,6 +26,11 @@ class cawpGenericItem {
         $this->title = $title;
     }
 
+    function getTitle() {
+        return $this->title;
+    }
+
+
     /**
      * Returns a list of alternate titles for an object
      * @return array
@@ -92,7 +97,7 @@ class cawpGenericItem {
             "INNER JOIN " . $representation_table . " AS caoor ON caor.representation_id = caoor.representation_id " .
             "WHERE caoor." . $column . " = " . $this->id . " " .
             "AND deleted = 0 " .
-            "AND access = 1 " .
+            "AND access = " . $this->access . " " .
             "ORDER BY caoor.rank");
 
         $altImages = array();
@@ -112,8 +117,18 @@ class cawpGenericItem {
     }
 
 
+    function getPrimaryImage() {
+        return $this->primaryImage;
+    }
+
+
     function getPrimaryImageURL($size = "original") {
         return $this->primaryImage->getURL($size);
+    }
+
+
+    function getAlternativeImages() {
+        return $this->alternateImages;
     }
 
 

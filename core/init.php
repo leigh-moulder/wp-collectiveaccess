@@ -26,11 +26,6 @@ $cawp_config_manager = new cawpConfigurationManager(
 /***********************************************
 Global functions
  ************************************************/
-/**
- * Get the configuration object used by Broken Link Checker.
- *
- * @return blcConfigurationManager
- */
 function cawp_get_configuration(){
     return $GLOBALS['cawp_config_manager'];
 }

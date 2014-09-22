@@ -56,6 +56,10 @@ class cawpImage {
                 $this->media[$size]['HASH'] . '/' . $this->media[$size]['MAGIC'] . '_' . $this->media[$size]['FILENAME'];
         }
 
+        if ($url == null) {
+            $url = CAWP_PLUGIN_URL . '/images/default_object_preview.jpg';
+        }
+
         return $url;
     }
 

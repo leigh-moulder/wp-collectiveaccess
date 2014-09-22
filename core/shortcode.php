@@ -20,8 +20,6 @@ function cawp_slider_short_code($attr) {
     else {
         return null;
     }
-
-    //wp_reset_query();
 }
 
 
@@ -40,7 +38,7 @@ function generateCollectionSlider() {
         <h2>Collections</h2>
 
         <?php foreach ($collections as $collection) { ?>
-            <div class="">
+            <div class="cawp_item">
 
             </div>
         <?php } ?>
@@ -63,12 +61,21 @@ function generateObjectSlider() {
 
     <div id="cawp_object_slider" class="cawp_slider">
         <h2>Objects</h2>
-
-        <?php foreach ($objects as $object) { ?>
-            <div class="cawp_item">
-
-            </div>
-        <?php } ?>
+        <div id="cawp_object_set" class="cawp_slider_wrapper">
+            <?php foreach ($objects as $object) { ?>
+                <div class="cawp_item">
+                    <div class="cawp_item_image">
+                        <img src="<?php echo $object->getPrimaryImageURL("small"); ?>"
+                             alt="<?php echo $object->getTitle(); ?>"/>
+                    </div>
+                    <div class="cawp_item_title">
+                        <?php echo $object->getTitle(); ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <span class="slider_nav" id="prev"></span>
+            <span class="slider_nav" id="next"></span>
+        </div>
     </div>
     <?php
 }
