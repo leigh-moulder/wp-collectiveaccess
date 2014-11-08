@@ -1,58 +1,95 @@
-.cawp_slider {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    width: 800px;
-    height: 300px;
-    /*box-sizing: border-box;*/
-    overflow: hidden;
-}
-
-.cawp_slider_wrapper {
-    overflow: hidden;
+.jcarousel-wrapper {
+    /*margin: 20px auto;*/
     position: relative;
-    height: 280px;
-    top: auto;
+    border: 10px solid #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;
 }
 
-/*Navigation */
-.slider_nav {
-    position: absolute;
-    top: 45%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    /*opacity: 0.6;*/
+/** Carousel **/
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 
-.slider_nav:hover {
-    /*opacity: 0.9;*/
+.jcarousel ul {
+    width: 2000px;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-#prev {
-    float: left;
-    url(prev.png);
-}
-
-#next {
-    float: right;
-    url(next.png);
-}
-
-.cawp_item {
+.jcarousel li {
     width: 240px;
-    padding: 10px;
-    position: relative;
     float: left;
+    border: 1px solid #fff;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    list-style: none;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.cawp_item_image {
+.jcarousel img {
     display: block;
+    max-width: 100%;
+    height: auto !important;
     overflow: hidden;
-    height: 180px;
-    width: 240px;
+    margin: 0 auto; /* centers image */
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
 }
 
-.cawp_item_title {
+.jcarousel img:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.jcarousel .item_title {
     text-align: center;
+}
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #1D9EB8;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    -webkit-box-shadow: 0 0 4px #F0EFE7;
+    -moz-box-shadow: 0 0 4px #F0EFE7;
+    box-shadow: 0 0 4px #F0EFE7;
+}
+
+.jcarousel-control-next:hover,
+.jcarousel-control-prev:hover {
+    cursor: pointer;
+}
+
+.jcarousel-control-prev {
+    left: 5px;
+}
+
+.jcarousel-control-next {
+    right: 5px;
 }

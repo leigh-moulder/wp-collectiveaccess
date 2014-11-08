@@ -31,18 +31,28 @@ function generateCollectionSlider() {
     }
 
     $collections = cawpCollectionService::get_collections($cawpConfig->get('only_display_public_items'));
-
     ?>
 
-    <div id="cawp_collection_slider" class="cawp_slider">
-        <h2>Collections</h2>
+    <h2>Collections</h2>
+    <div id="cawp_collection_wrapper" class="jcarousel-wrapper">
+        <div id="collection_carousel" class="jcarousel">
+            <ul id="collection_list">
+                <?php foreach ($collections as $collection) { ?>
+                    <li>
+                        <img src="<?php echo $collection->getPrimaryImageURL("small"); ?>"
+                             alt="<?php echo $collection->getTitle(); ?>"/>
+                        <div class="item_title">
+                            <?php echo $collection->getTitle(); ?>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
 
-        <?php foreach ($collections as $collection) { ?>
-            <div class="cawp_item">
-
-            </div>
-        <?php } ?>
+        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
     </div>
+    <br>
 
     <?php
 }
@@ -56,27 +66,28 @@ function generateObjectSlider() {
     }
 
     $objects = cawpObjectService::get_objects($cawpConfig->get('only_display_public_items'));
-
     ?>
 
-    <div id="cawp_object_slider" class="cawp_slider">
-        <h2>Objects</h2>
-        <div id="cawp_object_set" class="cawp_slider_wrapper">
-            <?php foreach ($objects as $object) { ?>
-                <div class="cawp_item">
-                    <div class="cawp_item_image">
+    <h2>Objects</h2>
+    <div id="cawp_object_wrapper" class="jcarousel-wrapper">
+        <div id="object_carousel" class="jcarousel">
+            <ul id="object_list">
+                <?php foreach ($objects as $object) { ?>
+                    <li>
                         <img src="<?php echo $object->getPrimaryImageURL("small"); ?>"
                              alt="<?php echo $object->getTitle(); ?>"/>
-                    </div>
-                    <div class="cawp_item_title">
-                        <?php echo $object->getTitle(); ?>
-                    </div>
-                </div>
-            <?php } ?>
-            <span class="slider_nav" id="prev"></span>
-            <span class="slider_nav" id="next"></span>
+                        <div class="item_title">
+                            <?php echo $object->getTitle(); ?>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
+
+        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
     </div>
+    <br>
     <?php
 }
 

@@ -123,7 +123,12 @@ class cawpGenericItem {
 
 
     function getPrimaryImageURL($size = "original") {
-        return $this->primaryImage->getURL($size);
+        if ($this->primaryImage == null) {
+            return  CAWP_PLUGIN_URL . '/images/default_object_preview.jpg';
+        }
+        else {
+            return $this->primaryImage->getURL($size);
+        }
     }
 
 
