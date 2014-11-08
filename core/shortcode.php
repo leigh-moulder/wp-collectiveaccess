@@ -30,6 +30,7 @@ function generateCollectionSlider() {
         return null;
     }
 
+    $show_only_if_pic_exists = $cawpConfig->get('only_display_items_with_pics');
     $collections = cawpCollectionService::get_collections($cawpConfig->get('only_display_public_items'));
     ?>
 
@@ -37,15 +38,17 @@ function generateCollectionSlider() {
     <div id="cawp_collection_wrapper" class="jcarousel-wrapper">
         <div id="collection_carousel" class="jcarousel">
             <ul id="collection_list">
-                <?php foreach ($collections as $collection) { ?>
-                    <li>
-                        <img src="<?php echo $collection->getPrimaryImageURL("small"); ?>"
-                             alt="<?php echo $collection->getTitle(); ?>"/>
-                        <div class="item_title">
-                            <?php echo $collection->getTitle(); ?>
-                        </div>
-                    </li>
-                <?php } ?>
+                <?php foreach ($collections as $collection) {
+                    if (($collection->getPrimaryImage("small") != null) || !$show_only_if_pic_exists) { ?>
+                        <li>
+                            <img src="<?php echo $collection->getPrimaryImageURL("small"); ?>"
+                                 alt="<?php echo $collection->getTitle(); ?>"/>
+                            <div class="item_title">
+                                <?php echo $collection->getTitle(); ?>
+                            </div>
+                        </li>
+                <?php }
+                } ?>
             </ul>
         </div>
 
@@ -65,6 +68,7 @@ function generateObjectSlider() {
         return null;
     }
 
+    $show_only_if_pic_exists = $cawpConfig->get('only_display_items_with_pics');
     $objects = cawpObjectService::get_objects($cawpConfig->get('only_display_public_items'));
     ?>
 
@@ -72,7 +76,8 @@ function generateObjectSlider() {
     <div id="cawp_object_wrapper" class="jcarousel-wrapper">
         <div id="object_carousel" class="jcarousel">
             <ul id="object_list">
-                <?php foreach ($objects as $object) { ?>
+                <?php foreach ($objects as $object) {
+                    if (($object->getPrimaryImage("small") != null) || !$show_only_if_pic_exists) { ?>
                     <li>
                         <img src="<?php echo $object->getPrimaryImageURL("small"); ?>"
                              alt="<?php echo $object->getTitle(); ?>"/>
@@ -80,7 +85,8 @@ function generateObjectSlider() {
                             <?php echo $object->getTitle(); ?>
                         </div>
                     </li>
-                <?php } ?>
+                <?php }
+                } ?>
             </ul>
         </div>
 

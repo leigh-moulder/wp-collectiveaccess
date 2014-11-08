@@ -15,6 +15,7 @@ $cawp_config_manager = new cawpConfigurationManager(
         'include_objects' => true,
         'include_collections' => true,
         'only_display_public_items' => true,
+        'only_display_items_with_pics' => true,
         'installation_complete' => false,
         'db_connection_valid' => false,
         'ca_url' => 'http://localhost',

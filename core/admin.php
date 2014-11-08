@@ -44,6 +44,10 @@ function cawp_plugin_options() {
             $cawp_config_manager->set('only_display_public_items',
                 $_POST['cawp_display_public_only'] == "true" ? true : false);
         }
+        if (isset($_POST['cawp_display_items_with_pics_only'])) {
+            $cawp_config_manager->set('only_display_items_with_pics',
+                $_POST['cawp_display_items_with_pics_only'] == "true" ? true : false);
+        }
         if (isset($_POST['cawp_ca_url'])) {
             $cawp_config_manager->set('ca_url', $_POST['cawp_ca_url']);
         }
@@ -128,10 +132,17 @@ function cawp_plugin_options() {
                     </td>
                 </tr>
                 <tr>
-                    <td>Display Only Public Objects:</td>
+                    <td>Only Display Public Objects:</td>
                     <td>
                         <input type="radio" name="cawp_display_public_only" value="true" <?php if ($cawp_config_manager->get('only_display_public_items') == true) {echo 'checked';} ?> >Yes
                         <input type="radio" name="cawp_display_public_only" value="false" <?php if ($cawp_config_manager->get('only_display_public_items') == false) {echo 'checked';} ?> >No
+                    </td>
+                </tr>
+                <tr>
+                    <td>Only Display Items with Pictures:</td>
+                    <td>
+                        <input type="radio" name="cawp_display_items_with_pics_only" value="true" <?php if ($cawp_config_manager->get('only_display_items_with_pics') == true) {echo 'checked';} ?> >Yes
+                        <input type="radio" name="cawp_display_items_with_pics_only" value="false" <?php if ($cawp_config_manager->get('only_display_items_with_pics') == false) {echo 'checked';} ?> >No
                     </td>
                 </tr>
                 <tr>
