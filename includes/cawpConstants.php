@@ -14,6 +14,7 @@ class cawpConstants {
     // image constants
     const IMAGE_MEDIUM = "medium";
     const IMAGE_ORIGINAL = "original";
+    const IMAGE_PAGE = "page";
     const IMAGE_PREVIEW = "preview";
     const IMAGE_PRIMARY = "return_primary_only";
     const IMAGE_SMALL = "small";

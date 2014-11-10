@@ -54,9 +54,9 @@ function cawp_add_scripts() {
     wp_enqueue_style('cawp_styles', CAWP_PLUGIN_URL . '/css/cawpStyle.css');
 
     // uncomment for debugging
-    //wp_enqueue_script('jcarousel', CAWP_PLUGIN_URL . '/js/jquery.jcarousel.js', array('jquery'));
-    wp_enqueue_script('jcarousel', CAWP_PLUGIN_URL . '/js/jquery.jcarousel.min.js', array('jquery'));
-    wp_enqueue_script('jcarousel_responsive', CAWP_PLUGIN_URL . '/js/jcarousel.responsive.js', array('jcarousel'));
+    //wp_enqueue_script('jcarousel', CAWP_PLUGIN_URL . '/js/jcarousel/jquery.jcarousel.js', array('jquery'));
+    wp_enqueue_script('jcarousel', CAWP_PLUGIN_URL . '/js/jcarousel/jquery.jcarousel.min.js', array('jquery'));
+    wp_enqueue_script('jcarousel_responsive', CAWP_PLUGIN_URL . '/js/jcarousel/jcarousel.responsive.js', array('jcarousel'));
 }
 
 

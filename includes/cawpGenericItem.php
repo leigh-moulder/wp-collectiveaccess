@@ -26,6 +26,11 @@ class cawpGenericItem {
         $this->title = $title;
     }
 
+    function getId() {
+        return $this->id;
+    }
+
+
     function getTitle() {
         return $this->title;
     }
@@ -150,6 +155,17 @@ class cawpGenericItem {
         $result = $db->get_row($query);
 
         return $result->value_longtext1;
+    }
+
+
+    function getMetadataLabel($element_code) {
+        $db = cawpDBConn::getInstance()->getDB();
+        $query = "SELECT name_singular " .
+                 "FROM ca_list_item_labels " .
+                 "WHERE item_id = " . $element_code;
+
+        $result = $db->get_row($query);
+        return $result->name_singular;
     }
 
 } 

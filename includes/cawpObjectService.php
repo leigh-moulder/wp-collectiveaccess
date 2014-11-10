@@ -7,7 +7,7 @@ require_once CAWP_DIRECTORY . '/includes/cawpObject.php';
  * Class cawpObjectService
  * Provides methods to query the database for Objects.
  */
-class cawpObjectService {
+class cawpObjectService{
 
     public static function get_objects($public_only = true) {
 
@@ -16,7 +16,6 @@ class cawpObjectService {
         }
 
         $db = cawpDBConn::getInstance()->getDB();
-
 
         $query = "SELECT objects.object_id, objects.source_id, objects.type_id, objects.idno, objects.access, labels.name " .
             "FROM ca_objects as objects, ca_object_labels as labels " .
@@ -36,5 +35,29 @@ class cawpObjectService {
         }
 
         return $objects;
+    }
+
+
+    public static function get_object_by_id($id) {
+
+        if (!cawpDBConn::getInstance()->is_db_connected()) {
+            return array();
+        }
+
+        if ($id == null) {
+            return null;
+        }
+
+        $db = cawpDBConn::getInstance()->getDB();
+
+        $query = "SELECT objects.object_id, objects.source_id, objects.type_id, objects.idno, objects.access, labels.name " .
+            "FROM ca_objects as objects, ca_object_labels as labels " .
+            "WHERE objects.object_id = labels.object_id " .
+            "AND objects.deleted=0 " .
+            "AND labels.is_preferred=1 " .
+            "AND objects.object_id = " . $id;
+
+        $result = $db->get_row($query);
+        return $result;
     }
 } 

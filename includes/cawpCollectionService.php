@@ -38,4 +38,27 @@ class cawpCollectionService {
         return $collections;
     }
 
+
+    public static function get_collection_by_id($id) {
+        if (!cawpDBConn::getInstance()->is_db_connected()) {
+            return null;
+        }
+
+        if ($id == null) {
+            return null;
+        }
+
+        $db = cawpDBConn::getInstance()->getDB();
+
+        $query = "SELECT collections.collection_id, collections.source_id, collections.type_id, collections.idno, collections.access, labels.name " .
+            "FROM ca_collections as collections, ca_collection_labels as labels " .
+            "WHERE collections.collection_id = labels.collection_id " .
+            "AND collections.deleted=0 " .
+            "AND labels.is_preferred=1 " .
+            "AND collections.collection_id = " . $id;
+
+        $result = $db->get_row($query);
+        return $result;
+    }
+
 } 

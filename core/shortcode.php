@@ -41,8 +41,14 @@ function generateCollectionSlider() {
                 <?php foreach ($collections as $collection) {
                     if (($collection->getPrimaryImage("small") != null) || !$show_only_if_pic_exists) { ?>
                         <li>
-                            <img src="<?php echo $collection->getPrimaryImageURL("small"); ?>"
-                                 alt="<?php echo $collection->getTitle(); ?>"/>
+                            <a href="#collection_<?php echo $collection->getId() ?>"
+                               class="fancybox">
+                                <div style="display: none">
+                                    <div id="collection_<?php echo $collection->getId() ?>" ><?php generateCollectionLightbox($collection) ?></div>
+                                </div>
+                                <img src="<?php echo $collection->getPrimaryImageURL("small"); ?>"
+                                     alt="<?php echo $collection->getTitle(); ?>"/>
+                            </a>
                             <div class="item_title">
                                 <?php echo $collection->getTitle(); ?>
                             </div>
@@ -79,8 +85,14 @@ function generateObjectSlider() {
                 <?php foreach ($objects as $object) {
                     if (($object->getPrimaryImage("small") != null) || !$show_only_if_pic_exists) { ?>
                     <li>
-                        <img src="<?php echo $object->getPrimaryImageURL("small"); ?>"
-                             alt="<?php echo $object->getTitle(); ?>"/>
+                        <a href="#object_<?php echo $object->getId(); ?>"
+                           class="fancybox">
+                            <div style="display: none">
+                                <div id="object_<?php echo $object->getId() ?>" ><?php generateObjectLightbox($object) ?></div>
+                            </div>
+                            <img src="<?php echo $object->getPrimaryImageURL("small"); ?>"
+                                 alt="<?php echo $object->getTitle(); ?>"/>
+                        </a>
                         <div class="item_title">
                             <?php echo $object->getTitle(); ?>
                         </div>
@@ -97,4 +109,57 @@ function generateObjectSlider() {
     <?php
 }
 
- 
+
+
+function generateCollectionLightbox($collection) {
+
+    ?>
+    <h2>Collection Info:</h2>
+    <p>Id : <?php echo $collection->getId(); ?></p>
+<?php
+}
+
+
+function generateObjectLightbox($object) {
+
+    $metadata = $object->getMetadata();
+
+    $date_type = $object->getMetadataLabel($metadata['dates_type']);
+    ?>
+
+    <h2><?php echo $object->getTitle(); ?></h2>
+    <div class="images">
+        <div class="alt_images">
+
+        </div>
+        <div class="primary_image">
+            <img src="<?php echo $object->getPrimaryImageURL("medium"); ?>"
+                 alt="<?php echo $object->getTitle(); ?>"/>
+        </div>
+    </div>
+
+    <div class="description">
+        <p><?php echo $object->getDescription(); ?></p>
+    </div>
+
+    <div class="metadata">
+        <dl>
+            <dt>Medium</dt>
+            <dd><?php echo $metadata['work_medium']; ?></dd>
+
+            <?php if ($metadata['dimensions_width'] != null) { ?>
+                <dt>Dimensions</dt>
+                <dd>
+                    <?php echo $metadata['dimensions_width'] . ' W x ' .
+                        $metadata['dimensions_height'] . ' H x ' .
+                        $metadata['dimenions-depth'] . ' D'; ?>
+                </dd>
+            <?php } ?>
+
+            <dt><?php echo $date_type; ?></dt>
+            <dd><?php echo $metadata['dates_value']; ?></dd>
+
+        </dl>
+    </div>
+<?php
+}
