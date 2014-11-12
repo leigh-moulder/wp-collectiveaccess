@@ -11,14 +11,25 @@ class cawpConstants {
     const OBJECT_TYPES = "object_types";
     const OBJECT_SOURCES = "object_sources";
 
-    // image constants
-    const IMAGE_MEDIUM = "medium";
-    const IMAGE_ORIGINAL = "original";
-    const IMAGE_PAGE = "page";
-    const IMAGE_PREVIEW = "preview";
-    const IMAGE_PRIMARY = "return_primary_only";
-    const IMAGE_SMALL = "small";
-    const IMAGE_TILEPIC = "tilepic";
+    // image constants from CollectiveAccess (sorted by size)
+    const IMAGE_ORIGINAL        = "original";               // original
+    const IMAGE_PRIMARY         = "return_primary_only";    // original
+    const IMAGE_TINY            = "tiny";                   // 54x72
+    const IMAGE_ICON            = "icon";                   // 72x72
+    const IMAGE_THUMBNAIL       = "thumbnail";              // 90x120
+    const IMAGE_PREVIEW170      = "preview170";             // 170x128
+    const IMAGE_PREVIEW         = "preview";                // 180x135
+    const IMAGE_SMALL           = "small";                  // 240x180
+    const IMAGE_MEDIUM          = "medium";                 // 400x300
+    const IMAGE_MEDLARGE        = "mediumlarge";            // 476x356
+    const IMAGE_PAGE            = "page";                   // 1000x750
+    const IMAGE_TILEPIC         = "tilepic";                // 1024x768
+
+
+    // sizes used throughout WordPress
+    const IMAGE_CAROUSEL        = "small";
+    const IMAGE_MAIN            = "large";
+    const IMAGE_ALT             = "thumbnail";
 
     // CollectiveAccess table numbers.  This mirrors datamodel.conf
     public static $CA_TABLES = array(

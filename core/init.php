@@ -52,11 +52,13 @@ add_action('wp_enqueue_scripts', 'cawp_add_scripts');
 add_action('admin_enqueue_scripts', 'cawp_add_scripts');
 function cawp_add_scripts() {
     wp_enqueue_style('cawp_styles', CAWP_PLUGIN_URL . '/css/cawpStyle.css');
+    wp_enqueue_style('owl_styles', CAWP_PLUGIN_URL . '/css/owl.carousel.css');
 
-    // uncomment for debugging
-    //wp_enqueue_script('jcarousel', CAWP_PLUGIN_URL . '/js/jcarousel/jquery.jcarousel.js', array('jquery'));
-    wp_enqueue_script('jcarousel', CAWP_PLUGIN_URL . '/js/jcarousel/jquery.jcarousel.min.js', array('jquery'));
-    wp_enqueue_script('jcarousel_responsive', CAWP_PLUGIN_URL . '/js/jcarousel/jcarousel.responsive.js', array('jcarousel'));
+    // uncomment the appropriate one for debugging
+//    wp_enqueue_script('owl.carousel', CAWP_PLUGIN_URL . '/js/owl.carousel/owl.carousel.js', array('jquery'));
+    wp_enqueue_script('owl.carousel', CAWP_PLUGIN_URL . '/js/owl.carousel/owl.carousel.min.js', array('jquery'));
+
+
 }
 
 

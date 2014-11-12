@@ -142,7 +142,7 @@ class cawpGenericItem {
     }
 
 
-    function getMetaData($element_code, $item_id, $table_num) {
+    function getMetaDataValue($element_code, $item_id, $table_num) {
         $db = cawpDBConn::getInstance()->getDB();
         $query = "SELECT attribute_values.value_longtext1 " .
             "FROM ca_metadata_elements as elements, ca_attributes as attributes, ca_attribute_values as attribute_values " .

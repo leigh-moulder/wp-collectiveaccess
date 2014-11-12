@@ -12,10 +12,12 @@ include_once CAWP_DIRECTORY . '/includes/cawpConstants.php';
  */
 class cawpObject extends cawpGenericItem {
 
+    protected $metadata;
 
     function __construct($id, $source, $type, $idno, $access, $title) {
         parent::__construct($id, $source, $type, $idno, $access, $title);
         $this->getImagesFromDatabase();
+        $this->metadata = $this->getMetadata();
     }
 
 
@@ -50,7 +52,12 @@ class cawpObject extends cawpGenericItem {
 
 
     function getDescription() {
-        return parent::getMetaData('work_description', $this->id, cawpConstants::$CA_TABLES['ca_objects']);
+        if (isset($this->metadata)) {
+            return $this->metadata['work_description'];
+        }
+        else {
+            return "";
+        }
     }
 
 
