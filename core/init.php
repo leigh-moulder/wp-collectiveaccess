@@ -57,6 +57,7 @@ function cawp_add_scripts() {
     // uncomment the appropriate one for debugging
 //    wp_enqueue_script('owl.carousel', CAWP_PLUGIN_URL . '/js/owl.carousel/owl.carousel.js', array('jquery'));
     wp_enqueue_script('owl.carousel', CAWP_PLUGIN_URL . '/js/owl.carousel/owl.carousel.min.js', array('jquery'));
+    wp_enqueue_script('owl.carousel.init', CAWP_PLUGIN_URL . '/js/owl.carousel/owl.carousel.init.js', array('owl.carousel'));
 
 
 }

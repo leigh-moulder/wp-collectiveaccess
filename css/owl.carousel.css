@@ -62,7 +62,6 @@
     /* position relative and z-index fix webkit rendering fonts issue */
     position: relative;
     z-index: 1;
-
     border: 10px solid #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -105,6 +104,35 @@
     user-select: none;
 }
 
+.owl-carousel .owl-controls .owl-nav .owl-prev,
+.owl-carousel .owl-controls .owl-nav .owl-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #1D9EB8;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    -webkit-box-shadow: 0 0 4px #F0EFE7;
+    -moz-box-shadow: 0 0 4px #F0EFE7;
+    box-shadow: 0 0 4px #F0EFE7;
+}
+
+.owl-carousel .owl-controls .owl-nav .owl-prev {
+    left: 5px;
+}
+
+.owl-carousel .owl-controls .owl-nav .owl-next {
+    right: 5px;
+}
+
 .owl-carousel.owl-loaded {
     display: block;
 }
@@ -139,6 +167,13 @@
     display: block;
     width: 100%;
     -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: auto !important;
+    overflow: hidden;
+    margin: 0 auto; /* centers image */
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .owl-carousel.owl-text-select-on .owl-item {
@@ -179,10 +214,6 @@
     -ms-transition: opacity 400ms ease;
     -o-transition: opacity 400ms ease;
     transition: opacity 400ms ease;
-}
-
-.owl-carousel .owl-item img {
-    transform-style: preserve-3d;
 }
 
 /* 
@@ -245,4 +276,8 @@
 .owl-carousel .owl-video-frame {
     position: relative;
     z-index: 1;
+}
+
+.owl-carousel .item_title {
+    text-align: center;
 }

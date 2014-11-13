@@ -55,8 +55,12 @@ function generateCollectionSlider() {
         <?php foreach ($collections as $collection) {
             if (($collection->getPrimaryImage(cawpConstants::IMAGE_CAROUSEL) != null) || !$show_only_if_pic_exists) { ?>
                 <div clas="item">
-                    <img src="<?php echo $collection->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
+                    <img class="owl-lazy"
+                         data-src="<?php echo $collection->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
                          title="<?php echo $collection->getTitle(); ?>"/>
+                    <div class="item_title">
+                        <?php echo $collection->getTitle(); ?>
+                    </div>
                 </div>
             <?php }
         } ?>
@@ -84,8 +88,12 @@ function generateObjectSlider() {
         if (($object->getPrimaryImage(cawpConstants::IMAGE_CAROUSEL) != null) || !$show_only_if_pic_exists) {
             ?>
             <div class="item">
-                <img src="<?php echo $object->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
-                    alt="<?php echo $object->getTitle(); ?>"/>
+                <img class="owl-lazy"
+                     data-src="<?php echo $object->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
+                     title="<?php echo $object->getTitle(); ?>"/>
+                <div class="item_title">
+                    <?php echo $object->getTitle(); ?>
+                </div>
             </div>
         <?php
         }
