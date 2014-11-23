@@ -13,18 +13,6 @@ function cawp_slider_short_code($attr) {
 
     ?>
 
-    <script type="text/javascript" charset="utf-8">
-        jQuery(document).ready(function($) {
-            $('.owl-carousel').owlCarousel({
-                    items: 4,
-                    loop: true,
-                    nav: true,
-                    margin: 5
-                }
-            );
-        });
-    </script>
-
     <?php
 
     if ($type == 'collection') {
@@ -55,12 +43,14 @@ function generateCollectionSlider() {
         <?php foreach ($collections as $collection) {
             if (($collection->getPrimaryImage(cawpConstants::IMAGE_CAROUSEL) != null) || !$show_only_if_pic_exists) { ?>
                 <div clas="item">
-                    <img class="owl-lazy"
-                         data-src="<?php echo $collection->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
-                         title="<?php echo $collection->getTitle(); ?>"/>
-                    <div class="item_title">
-                        <?php echo $collection->getTitle(); ?>
-                    </div>
+                    <a href="<?php echo CAWP_PLUGIN_URL . '/core/lightbox.php';?>" class="lightbox">
+                        <img class="owl-lazy"
+                             data-src="<?php echo $collection->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
+                             title="<?php echo $collection->getTitle(); ?>"/>
+                        <div class="item_title">
+                            <?php echo $collection->getTitle(); ?>
+                        </div>
+                    </a>
                 </div>
             <?php }
         } ?>
@@ -88,12 +78,17 @@ function generateObjectSlider() {
         if (($object->getPrimaryImage(cawpConstants::IMAGE_CAROUSEL) != null) || !$show_only_if_pic_exists) {
             ?>
             <div class="item">
-                <img class="owl-lazy"
-                     data-src="<?php echo $object->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
-                     title="<?php echo $object->getTitle(); ?>"/>
-                <div class="item_title">
-                    <?php echo $object->getTitle(); ?>
-                </div>
+                <?php
+                    $serialObject = $object->convert_to_array();
+                ?>
+                <a href="<?php echo CAWP_PLUGIN_URL . '/core/lightbox.php';?>" class="lightbox" data="<?php echo json_encode($serialObject); ?>">
+                    <img class="owl-lazy"
+                         data-src="<?php echo $object->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL); ?>"
+                         title="<?php echo $object->getTitle(); ?>"/>
+                    <div class="item_title">
+                        <?php echo $object->getTitle(); ?>
+                    </div>
+                </a>
             </div>
         <?php
         }

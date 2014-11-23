@@ -30,4 +30,12 @@ class cawpCollection extends cawpGenericItem {
         parent::getImagesFromDatabase('ca_object_representations_x_collections', 'collection_id');
     }
 
+
+    function convert_to_array() {
+        $result = parent::convert_to_array();
+        $result['type'] = "collection";
+
+        return $result;
+    }
+
 }

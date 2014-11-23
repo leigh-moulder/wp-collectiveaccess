@@ -142,6 +142,14 @@ class cawpGenericItem {
     }
 
 
+    /**
+     * Returns a particular metadata value.
+     *
+     * @param $element_code : metadata key
+     * @param $item_id : primary key of the object to return the metadata for
+     * @param $table_num : corresponding object table id
+     * @return mixed
+     */
     function getMetaDataValue($element_code, $item_id, $table_num) {
         $db = cawpDBConn::getInstance()->getDB();
         $query = "SELECT attribute_values.value_longtext1 " .
@@ -158,6 +166,12 @@ class cawpGenericItem {
     }
 
 
+    /**
+     * Returns the display label for a given metadata attribute.
+     *
+     * @param $element_code : metadata key to search for.
+     * @return mixed
+     */
     function getMetadataLabel($element_code) {
         $db = cawpDBConn::getInstance()->getDB();
         $query = "SELECT name_singular " .
@@ -166,6 +180,29 @@ class cawpGenericItem {
 
         $result = $db->get_row($query);
         return $result->name_singular;
+    }
+
+
+    /**
+     * Converts the object into an array.
+     *
+     * @return array
+     */
+    function convert_to_array() {
+        $result = array();
+
+        $result['id'] = $this->id;
+        $result['title'] = $this->title;
+
+        $result['img_primary_main'] = $this->getPrimaryImageURL(cawpConstants::IMAGE_MAIN);
+        $result['img_primary_thumb'] = $this->getPrimaryImageURL(cawpConstants::IMAGE_ALT);
+
+        $altImgCount = count($this->alternateImages);
+        for ($i = 0; $i < $altImgCount; $i++) {
+            $result['alt_img_' . $i . '_thumb'] = $this->alternateImages[$i]->getURL(cawpConstants::IMAGE_ALT);
+        }
+
+        return $result;
     }
 
 } 

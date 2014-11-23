@@ -60,7 +60,11 @@ class cawpObject extends cawpGenericItem {
         }
     }
 
-
+    /**
+     * Returns select metadata for the object.
+     *
+     * @return array
+     */
     function getMetadata() {
         $db = cawpDBConn::getInstance()->getDB();
         $query = "SELECT elements.element_code, a_values.value_longtext1 " .
@@ -82,5 +86,15 @@ class cawpObject extends cawpGenericItem {
         }
 
         return $metadata;
+    }
+
+
+    function convert_to_array() {
+        $result = parent::convert_to_array();
+
+        $result['description'] = $this->getDescription();
+        $result['type'] = "object";
+
+        return $result;
     }
 }

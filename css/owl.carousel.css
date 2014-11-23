@@ -281,3 +281,10 @@
 .owl-carousel .item_title {
     text-align: center;
 }
+
+.owl-carousel a:link,
+.owl-carousel a:visited,
+.owl-carousel a:hover,
+.owl-carousel a:active {
+    text-decoration: none;
+}
