@@ -89,8 +89,8 @@ class cawpObject extends cawpGenericItem {
     }
 
 
-    function convert_to_array() {
-        $result = parent::convert_to_array();
+    function jsonSerialize() {
+        $result = parent::jsonSerialize();
 
         $result['description'] = $this->getDescription();
         $result['type'] = "object";

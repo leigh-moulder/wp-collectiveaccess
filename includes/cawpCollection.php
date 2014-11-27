@@ -31,8 +31,8 @@ class cawpCollection extends cawpGenericItem {
     }
 
 
-    function convert_to_array() {
-        $result = parent::convert_to_array();
+    function jsonSerialize() {
+        $result = parent::jsonSerialize();
         $result['type'] = "collection";
 
         return $result;

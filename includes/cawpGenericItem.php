@@ -4,7 +4,7 @@ include_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
 include_once CAWP_DIRECTORY . '/includes/cawpDBUtils.php';
 include_once CAWP_DIRECTORY . '/includes/cawpImage.php';
 
-class cawpGenericItem {
+class cawpGenericItem implements JsonSerializable {
 
     protected $id;
     protected $source_id;
@@ -182,13 +182,14 @@ class cawpGenericItem {
         return $result->name_singular;
     }
 
-
     /**
-     * Converts the object into an array.
-     *
-     * @return array
+     * (PHP 5 &gt;= 5.4.0)<br/>
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
      */
-    function convert_to_array() {
+    function jsonSerialize(){
         $result = array();
 
         $result['id'] = $this->id;
@@ -199,10 +200,9 @@ class cawpGenericItem {
 
         $altImgCount = count($this->alternateImages);
         for ($i = 0; $i < $altImgCount; $i++) {
-            $result['alt_img_' . $i . '_thumb'] = $this->alternateImages[$i]->getURL(cawpConstants::IMAGE_ALT);
+            $result['alt_img']['alt_img_' . $i . '_thumb'] = $this->alternateImages[$i]->getURL(cawpConstants::IMAGE_ALT);
         }
 
         return $result;
     }
-
-} 
+}

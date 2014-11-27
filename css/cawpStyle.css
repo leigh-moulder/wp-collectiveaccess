@@ -1,0 +1,18 @@
+.lightbox_images .lightbox_primary_image img {
+    margin: 0 auto; /* centers image */
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.lightbox_images .lightbox_alt_imges {
+    margin: 0 auto;
+}
+
+
+.lightbox_images .lightbox_alt_img img{
+    margin: 0 auto; /* centers image */
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
