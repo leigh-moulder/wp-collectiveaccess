@@ -15,7 +15,19 @@ else {
 }
 ?>
 
-
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.owl-carousel-small').owlCarousel({
+            items: 3,
+            loop: true,
+            margin: 5,
+            nav: true,
+            navText: ['&#10094;', '&#10095;'],
+            dots: false,
+            center: true
+        });
+    });
+</script>
 
 
 <?php
@@ -54,15 +66,15 @@ function generateObjectLightbox($object) {
             <img src="<?php echo $object["img_primary_main"]?>"
                  alt="<?php echo $object["title"]; ?>"/>
         </div>
-        <div class="lightbox_alt_images">
-            <ul>
+        <?php if ($altImgCount > 0) { ?>
+            <div id="object_alt_images" class="owl-carousel owl-carousel-small">
                 <?php for ($i = 0; $i < $altImgCount; $i++) { ?>
-                    <li class="lightbox_alt_img">
+                    <div class="item">
                         <img src="<?php echo $object['alt_img']['alt_img_' . $i . '_thumb'];?>"/>
-                    </li>
-                <?php }?>
-            </ul>
-        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php }?>
     </div>
 
     <div class="description">

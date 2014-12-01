@@ -71,6 +71,22 @@
     box-shadow: 0 0 2px #999;
 }
 
+.owl-carousel-small {
+    display: none;
+    width: 98%;
+    -webkit-tap-highlight-color: transparent;
+    /* position relative and z-index fix webkit rendering fonts issue */
+    position: relative;
+    z-index: 1;
+    border: 10px solid #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;
+}
+
 .owl-carousel .owl-stage {
     position: relative;
     -ms-touch-action: pan-Y;

@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
     $("a.lightbox").click(function(e) {
-
+        $.fancybox.showActivity();
         e.preventDefault();
         $.fancybox(this,{
             type : 'ajax',
@@ -11,21 +11,24 @@ jQuery(document).ready(function($) {
                     object : $(this).attr("data-json")
                 }
             },
+            // these mirror those found in <theme>/javascripts/advocate.js
             transitionIn:			"elastic",
             transitionOut:		    "elastic",
             easingIn:				"easeOutBack",
             easingOut:				"easeInBack",
-            padding:				0,
+            padding:				5,
             speedIn:      		    500,
             speedOut: 				500,
             hideOnContentClick:	    false,
             overlayShow:            true,
             width :                 700,
-            height :                800,
+            height :                700,
             autoDimensions :        false,
+            autoSize :              true,
             scrolling :             "auto",
             autoScale :             false,
+            fitToView :             false,
             titleShow :             false
-        })
+        });
     })
 });
