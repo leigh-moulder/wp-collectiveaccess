@@ -21,8 +21,8 @@ jQuery(document).ready(function($) {
             speedOut: 				500,
             hideOnContentClick:	    false,
             overlayShow:            true,
-            width :                 700,
-            height :                700,
+            width :                 705,    // add the padding to max img size
+            height :                705,
             autoDimensions :        false,
             autoSize :              true,
             scrolling :             "auto",
@@ -30,5 +30,7 @@ jQuery(document).ready(function($) {
             fitToView :             false,
             titleShow :             false
         });
+
+        $.fancybox.resize();
     })
 });

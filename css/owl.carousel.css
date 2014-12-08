@@ -73,7 +73,8 @@
 
 .owl-carousel-small {
     display: none;
-    width: 98%;
+    width: 90%;
+    margin: 0 auto;  /* centers the div */
     -webkit-tap-highlight-color: transparent;
     /* position relative and z-index fix webkit rendering fonts issue */
     position: relative;
@@ -179,9 +180,38 @@
     user-select: none;
 }
 
+.owl-carousel-small .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .owl-carousel .owl-item img {
     display: block;
     width: 100%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: auto !important;
+    overflow: hidden;
+    margin: 0 auto; /* centers image */
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.owl-carousel-small .owl-item img {
+    display: block;
+    max-width: 90px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     height: auto !important;
