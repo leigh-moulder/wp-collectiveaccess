@@ -32,24 +32,26 @@ else {
 
 <?php
 function generateCollectionLightbox($collection) {
-    $altImgCount = array_key_exists("alt_img", $collection) ? count($collection['alt_img']) : 0;
+    $objectCount = array_key_exists("objects", $collection) ? count($collection['objects']) : 0;
     ?>
 
-    <h2><?php echo $collection["title"] ?></h2>
+    <div clas="lightbox_title">
+        <h2><?php echo $collection["title"] ?></h2>
+    </div>
     <div class="lightbox_images">
         <div class="lightbox_primary_image">
             <img src="<?php echo $collection["img_primary_main"]?>"
                  alt="<?php echo $collection["title"]; ?>"/>
         </div>
-        <div class="lightbox_alt_images">
-            <ul>
-                <?php for ($i = 0; $i < $altImgCount; $i++) { ?>
-                    <li class="lightbox_alt_img">
-                        <img src="<?php echo $collection['alt_img']['alt_img_' . $i . '_thumb'];?>"/>
-                    </li>
-                <?php }?>
-            </ul>
-        </div>
+        <?php if ($objectCount > 0) { ?>
+            <div class="owl-carousel owl-carousel-small">
+                <?php for ($i = 0; $i < $objectCount; $i++) { ?>
+                    <div class="item">
+                        <img src="<?php echo $collection['objects']['object_' . $i]['img_primary_thumb'];?>"/>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
     </div>
 <?php
 }
@@ -60,7 +62,9 @@ function generateObjectLightbox($object) {
     $altImgCount = array_key_exists("alt_img", $object) ? count($object['alt_img']) : 0;
     ?>
 
-    <h2><?php echo $object["title"] ?></h2>
+    <div class="lightbox_title">
+        <h2><?php echo $object["title"] ?></h2>
+    </div>
     <div class="lightbox_images">
         <div class="lightbox_primary_image">
             <img src="<?php echo $object["img_primary_main"]?>"

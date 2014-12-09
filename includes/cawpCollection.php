@@ -1,6 +1,7 @@
 <?php
 
 include_once CAWP_DIRECTORY . '/includes/cawpGenericItem.php';
+include_once CAWP_DIRECTORY . '/includes/cawpObjectService.php';
 
 /**
  * This class represents a Collective Access Collection.  It does not include
@@ -9,10 +10,13 @@ include_once CAWP_DIRECTORY . '/includes/cawpGenericItem.php';
  */
 class cawpCollection extends cawpGenericItem {
 
+    protected $objects;
+
     function __construct($id, $source, $type, $idno, $access, $title) {
         parent::__construct($id, $source, $type, $idno, $access, $title);
 
         $this->getImagesFromDatabase();
+        $this->objects = cawpObjectService::get_objects_by_collection($id);
     }
 
 
@@ -34,6 +38,11 @@ class cawpCollection extends cawpGenericItem {
     function jsonSerialize() {
         $result = parent::jsonSerialize();
         $result['type'] = "collection";
+
+        $objCount = count($this->objects);
+        for ($i = 0; $i < $objCount; $i++) {
+            $result['objects']['object_' . $i] = $this->objects[$i]->jsonSerialize();
+        }
 
         return $result;
     }
