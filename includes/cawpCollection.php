@@ -16,7 +16,6 @@ class cawpCollection extends cawpGenericItem {
         parent::__construct($id, $source, $type, $idno, $access, $title);
 
         $this->getImagesFromDatabase();
-        $this->objects = cawpObjectService::get_objects_by_collection($id);
     }
 
 
@@ -32,6 +31,11 @@ class cawpCollection extends cawpGenericItem {
 
     function getImagesFromDatabase() {
         parent::getImagesFromDatabase('ca_object_representations_x_collections', 'collection_id');
+    }
+
+
+    function getObjectsFromDatabase() {
+        $this->objects = cawpObjectService::get_objects_by_collection($this->id);
     }
 
 

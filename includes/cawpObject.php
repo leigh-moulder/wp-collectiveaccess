@@ -17,7 +17,6 @@ class cawpObject extends cawpGenericItem {
     function __construct($id, $source, $type, $idno, $access, $title) {
         parent::__construct($id, $source, $type, $idno, $access, $title);
         $this->getImagesFromDatabase();
-        $this->metadata = $this->getMetadata();
     }
 
 
@@ -61,11 +60,9 @@ class cawpObject extends cawpGenericItem {
     }
 
     /**
-     * Returns select metadata for the object.
-     *
-     * @return array
+     * Queries the database for the object's metadata and then sets it.
      */
-    function getMetadata() {
+    function getMetadataFromDatabase() {
         $db = cawpDBConn::getInstance()->getDB();
         $query = "SELECT elements.element_code, a_values.value_longtext1 " .
             "FROM ca_attribute_values a_values, ca_attributes attributes, ca_metadata_elements elements " .
@@ -85,7 +82,16 @@ class cawpObject extends cawpGenericItem {
             $metadata[$result->element_code] = $result->value_longtext1;
         }
 
-        return $metadata;
+        $this->metadata = $metadata;
+    }
+
+    /**
+     * Returns the object's metadata.
+     *
+     * @return array
+     */
+    function getMetadata() {
+        return $this->metadata;
     }
 
 
