@@ -60,6 +60,8 @@ function cawp_add_scripts() {
     wp_enqueue_script('owl.carousel.init', CAWP_PLUGIN_URL . '/js/owl.carousel/owl.carousel.init.js', array('owl.carousel'));
 
     wp_enqueue_script('fancybox_init', CAWP_PLUGIN_URL . '/js/fancybox/fancybox_init.js', array('fancybox'));
+
+    wp_localize_script('fancybox_init', 'CAWPLightbox', array('ajaxurl' => admin_url('admin-ajax.php')));
 }
 
 

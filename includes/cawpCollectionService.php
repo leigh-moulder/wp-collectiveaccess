@@ -58,7 +58,9 @@ class cawpCollectionService {
             "AND collections.collection_id = " . $id;
 
         $result = $db->get_row($query);
-        return $result;
+        $collection = new cawpCollection($result->collection_id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+
+        return $collection;
     }
 
 } 

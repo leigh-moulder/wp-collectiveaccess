@@ -9,7 +9,7 @@ require_once CAWP_DIRECTORY . '/includes/cawpObject.php';
  */
 class cawpObjectService{
 
-    public static function get_objects($public_only = true) {
+    public static function get_objects($public_only = true, $shallow = true) {
 
         if (!cawpDBConn::getInstance()->is_db_connected()) {
             return array();
@@ -31,6 +31,10 @@ class cawpObjectService{
         $objects = array();
         foreach ($results as $result) {
             $object = new cawpObject($result->object_id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+
+            if (!$shallow) {
+                $object->getMetadataFromDatabase();
+            }
             array_push($objects, $object);
         }
 
@@ -38,7 +42,7 @@ class cawpObjectService{
     }
 
 
-    public static function get_object_by_id($id) {
+    public static function get_object_by_id($id, $shallow = true) {
 
         if (!cawpDBConn::getInstance()->is_db_connected()) {
             return array();
@@ -58,11 +62,17 @@ class cawpObjectService{
             "AND objects.object_id = " . $id;
 
         $result = $db->get_row($query);
-        return $result;
+        $object = new cawpObject($result->object_id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+
+        if (!$shallow) {
+            $object->getMetadataFromDatabase();
+        }
+
+        return $object;
     }
 
 
-    public static function get_objects_by_collection($collection_id) {
+    public static function get_objects_by_collection($collection_id, $shallow = true) {
 
         if (!cawpDBConn::getInstance()->is_db_connected()) {
             return array();
@@ -86,6 +96,10 @@ class cawpObjectService{
         $objects = array();
         foreach ($results as $result) {
             $object = new cawpObject($result->object_id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+
+            if (!$shallow) {
+                $object->getMetadataFromDatabase();
+            }
             array_push($objects, $object);
         }
 
