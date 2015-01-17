@@ -4,8 +4,6 @@ jQuery(document).ready(function($) {
         var type = $(this).attr("data-type");
         var id = $(this).attr("data-id");
 
-        var width = $(this).attr("data-primaryImgWidth");
-
         $.fancybox.showActivity();
         e.preventDefault();
         $.post( CAWPLightbox.ajaxurl,
@@ -23,17 +21,11 @@ jQuery(document).ready(function($) {
                 speedOut: 				500,
                 hideOnContentClick:	    false,
                 overlayShow:            true,
-                width :                 width,
-                //height :                705,
-                //autoDimensions :        false,
                 autoDimensions :        true,
                 scrolling :             "auto",
-                //autoScale :             false,
                 autoScale :             true,
-                //fitToView :             false,
                 titleShow :             false,
                 onComplete : function() {
-                    //$('#fancybox-content').width(width);
                     // note resize only resizes height, not width!
                     $.fancybox.resize();
                 }

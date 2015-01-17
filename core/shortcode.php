@@ -181,6 +181,8 @@ function generateCollectionLightbox($id) {
 function generateObjectLightbox($id) {
 
     $object = cawpObjectService::get_object_by_id($id, false);
+    $primaryImg = $object->getPrimaryImage();
+
     $altImages = $object->getAlternativeImages();
     $altImageCount = count($altImages);
     ?>
@@ -190,8 +192,10 @@ function generateObjectLightbox($id) {
     </div>
     <div class="lightbox_images">
         <div class="lightbox_primary_image">
-            <img src="<?php echo $object->getPrimaryImageURL(cawpConstants::IMAGE_MAIN);?>"
-                 alt="<?php $object->getTitle(); ?>"/>
+            <img src="<?php echo $primaryImg->getURL(cawpConstants::IMAGE_MAIN);?>"
+                 alt="<?php $object->getTitle(); ?>"
+                 height="<?php echo $primaryImg->getHeight(cawpConstants::IMAGE_MAIN); ?>"
+                 width="<?php echo $primaryImg->getWidth(cawpConstants::IMAGE_MAIN); ?>"/>
         </div>
         <?php if ($altImageCount > 0) { ?>
             <div id="alt_images" class="owl-carousel owl-carousel-small">
