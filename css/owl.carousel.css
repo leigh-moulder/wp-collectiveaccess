@@ -324,13 +324,19 @@
     z-index: 1;
 }
 
-.owl-carousel .item_title {
-    text-align: center;
-}
-
+.owl-carousel a,
 .owl-carousel a:link,
 .owl-carousel a:visited,
 .owl-carousel a:hover,
 .owl-carousel a:active {
     text-decoration: none;
+}
+
+.owl-carousel a:hover {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.owl-carousel .item_title {
+    text-align: center;
 }
