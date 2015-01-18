@@ -29,6 +29,16 @@ class cawpCollection extends cawpGenericItem {
     }
 
 
+    function getDescription() {
+        if (isset($this->metadata)) {
+            return $this->metadata['description'];
+        }
+        else {
+            return "";
+        }
+    }
+
+
     function getImagesFromDatabase() {
         parent::getImagesFromDatabase('ca_object_representations_x_collections', 'collection_id');
     }
@@ -36,6 +46,28 @@ class cawpCollection extends cawpGenericItem {
 
     function getObjectsFromDatabase() {
         $this->objects = cawpObjectService::get_objects_by_collection($this->id);
+    }
+
+    function getMetadataFromDatabase() {
+        $db = cawpDBConn::getInstance()->getDB();
+        $query = "SELECT elements.element_code, a_values.value_longtext1 " .
+                 "FROM ca_attribute_values a_values, ca_attributes attributes, ca_metadata_elements elements " .
+                 "WHERE a_values.attribute_id=attributes.attribute_id " .
+                 "AND a_values.element_id = elements.element_id " .
+                 "AND attributes.table_num = " . cawpConstants::$CA_TABLES['ca_collections'] . " " .
+                 "AND attributes.row_id = " . $this->id . " " .
+                 "AND attributes.element_id IN " .
+                 "  (SELECT element_id FROM ca_metadata_elements " .
+                 "   WHERE element_code='description' " .
+                 "   OR element_code='date')";
+
+        $results = $db->get_results($query);
+        $metadata = array();
+        foreach ($results as $result) {
+            $metadata[$result->element_code] = $result->value_longtext1;
+        }
+
+        $this->metadata = $metadata;
     }
 
 

@@ -10,7 +10,7 @@ require_once CAWP_DIRECTORY . '/includes/cawpCollection.php';
 class cawpCollectionService {
 
 
-    public static function get_collections($public_only = true) {
+    public static function get_collections($public_only = true, $shallow = true) {
         if (!cawpDBConn::getInstance()->is_db_connected()) {
             return array();
         }
@@ -32,6 +32,10 @@ class cawpCollectionService {
 
         foreach ($results as $result) {
             $collection = new cawpCollection($result->collection_id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+
+            if (!shallow) {
+                $collection->getMetadataFromDatabase();
+            }
             array_push($collections, $collection);
         }
 
@@ -39,7 +43,7 @@ class cawpCollectionService {
     }
 
 
-    public static function get_collection_by_id($id) {
+    public static function get_collection_by_id($id, $shallow = true) {
         if (!cawpDBConn::getInstance()->is_db_connected()) {
             return null;
         }
@@ -59,6 +63,10 @@ class cawpCollectionService {
 
         $result = $db->get_row($query);
         $collection = new cawpCollection($result->collection_id, $result->source_id, $result->type_id, $result->idno, $result->access, $result->name);
+
+        if (!$shallow) {
+            $collection->getMetadataFromDatabase();
+        }
 
         return $collection;
     }

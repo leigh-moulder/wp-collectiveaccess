@@ -16,6 +16,8 @@ class cawpGenericItem implements JsonSerializable {
     protected $primaryImage = null;
     protected $alternateImages = array();
 
+    protected $metadata;
+
 
     function __construct($id, $source, $type, $idno, $access, $title) {
         $this->id = $id;
@@ -139,6 +141,16 @@ class cawpGenericItem implements JsonSerializable {
 
     function getAlternativeImages() {
         return $this->alternateImages;
+    }
+
+
+    /**
+     * Returns the object's metadata.
+     *
+     * @return array
+     */
+    function getMetadata() {
+        return $this->metadata;
     }
 
 

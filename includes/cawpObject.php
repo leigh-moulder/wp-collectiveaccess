@@ -12,8 +12,6 @@ include_once CAWP_DIRECTORY . '/includes/cawpConstants.php';
  */
 class cawpObject extends cawpGenericItem {
 
-    protected $metadata;
-
     function __construct($id, $source, $type, $idno, $access, $title) {
         parent::__construct($id, $source, $type, $idno, $access, $title);
         $this->getImagesFromDatabase();
@@ -83,15 +81,6 @@ class cawpObject extends cawpGenericItem {
         }
 
         $this->metadata = $metadata;
-    }
-
-    /**
-     * Returns the object's metadata.
-     *
-     * @return array
-     */
-    function getMetadata() {
-        return $this->metadata;
     }
 
 

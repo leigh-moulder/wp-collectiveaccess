@@ -147,7 +147,7 @@ function displayLightbox() {
 
 function generateCollectionLightbox($id) {
 
-    $collection = cawpCollectionService::get_collection_by_id($id);
+    $collection = cawpCollectionService::get_collection_by_id($id, false);
     $collection_objects = cawpObjectService::get_objects_by_collection($id);
     $objectCount = count($collection_objects);
 
@@ -164,14 +164,25 @@ function generateCollectionLightbox($id) {
                  height="<?php echo $primaryImg->getHeight(cawpConstants::IMAGE_MAIN); ?>"
                  width="<?php echo $primaryImg->getWidth(cawpConstants::IMAGE_MAIN); ?>"/>
         </div>
+    </div>
+
+    <div class="description">
+        <h4>Description</h4>
+        <p><?php echo $collection->getDescription(); ?></p>
+    </div>
+
+    <div class="collection_objects">
         <?php if ($objectCount > 0) { ?>
+            <h4>Collection Objects</h4>
             <div class="owl-carousel owl-carousel-small">
                 <?php for ($i = 0; $i < $objectCount; $i++) { ?>
                     <div class="item">
-                        <img src="<?php echo $collection_objects[$i]->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL);?>"/>
+                        <img src="<?php echo $collection_objects[$i]->getPrimaryImageURL(cawpConstants::IMAGE_CAROUSEL);?>"
+                             alt="<?php echo $collection_objects[$i]->getTitle(); ?>"/>
                     </div>
                 <?php } ?>
             </div>
+            <br>
         <?php } ?>
     </div>
 <?php
@@ -182,7 +193,6 @@ function generateObjectLightbox($id) {
 
     $object = cawpObjectService::get_object_by_id($id, false);
     $primaryImg = $object->getPrimaryImage();
-
     $altImages = $object->getAlternativeImages();
     $altImageCount = count($altImages);
     ?>
@@ -213,7 +223,43 @@ function generateObjectLightbox($id) {
     </div>
 
     <div class="description">
+        <h4>Description</h4>
         <p><?php echo $object->getDescription(); ?></p>
+    </div>
+
+    <div class="metadata">
+        <?php
+            $medium = $object->getMetadata()['work_medium'];
+            $width = $object->getMetadata()['dimensions_width'];
+            $height = $object->getMetadata()['dimensions_height'];
+            $depth = $object->getMetadata()['dimensions_depth'];
+            $show_metadata = ($medium != null) || ($width != null) || ($height != null) ||
+                ($depth != null);
+        ?>
+        <?php if ($show_metadata) {?>
+            <h4>Detailed Information</h4>
+            <dl>
+                <?php if ($medium != null) { ?>
+                    <dt>Object Medium</dt>
+                    <dd><?php echo $medium; ?></dd>
+                <?php } ?>
+
+                <?php if ($width != null) { ?>
+                    <dt>Width</dt>
+                    <dd><?php echo  $width; ?></dd>
+                <?php } ?>
+
+                <?php if ($height != null) { ?>
+                    <dt>Height</dt>
+                    <dd><?php echo  $height; ?></dd>
+                <?php } ?>
+
+                <?php if ($depth != null) { ?>
+                    <dt>Depth</dt>
+                    <dd><?php echo $depth; ?></dd>
+                <?php } ?>
+            </dl>
+        <?php } ?>
     </div>
 
     <?php

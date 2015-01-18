@@ -5,3 +5,20 @@
     -moz-border-radius: 6px;
     border-radius: 6px;
 }
+
+.metadata dl {
+
+}
+
+.metadata dt {
+    float: left;
+    clear: left;
+}
+
+.metadata dt:after {
+    content: ":  ";
+}
+
+.metadata dd {
+
+}
