@@ -239,28 +239,23 @@ function generateObjectLightbox($id) {
         <?php if ($show_metadata) {?>
             <h4>Detailed Information</h4>
             <dl>
-                <?php if ($medium != null) { ?>
-                    <dt>Object Medium</dt>
-                    <dd><?php echo $medium; ?></dd>
-                <?php } ?>
-
-                <?php if ($width != null) { ?>
-                    <dt>Width</dt>
-                    <dd><?php echo  $width; ?></dd>
-                <?php } ?>
-
-                <?php if ($height != null) { ?>
-                    <dt>Height</dt>
-                    <dd><?php echo  $height; ?></dd>
-                <?php } ?>
-
-                <?php if ($depth != null) { ?>
-                    <dt>Depth</dt>
-                    <dd><?php echo $depth; ?></dd>
-                <?php } ?>
+                <?php
+                    displayMetadata("Object Medium", $medium);
+                    displayMetadata("Width", $width);
+                    displayMetadata("Height", $height);
+                    displayMetadata("Depth" , $depth);
+                ?>
             </dl>
         <?php } ?>
     </div>
 
     <?php
+}
+
+
+function displayMetadata($heading, $value, $displayIfNull = false) {
+    if (($value != null) || $displayIfNull) { ?>
+        <dt><?php echo $heading; ?></dt>
+        <dd><?php echo  $value; ?></dd>
+    <?php }
 }

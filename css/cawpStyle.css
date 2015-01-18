@@ -6,19 +6,12 @@
     border-radius: 6px;
 }
 
-.metadata dl {
-
-}
-
 .metadata dt {
     float: left;
     clear: left;
+    margin-right: 5px;
 }
 
 .metadata dt:after {
-    content: ":  ";
-}
-
-.metadata dd {
-
+    content: ":";
 }
