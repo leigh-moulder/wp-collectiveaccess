@@ -73,7 +73,7 @@
 
 .owl-carousel-small {
     display: none;
-    width: 90%;
+    width: 95%;
     margin: 0 auto;  /* centers the div */
     -webkit-tap-highlight-color: transparent;
     /* position relative and z-index fix webkit rendering fonts issue */
@@ -208,10 +208,7 @@
 
 .owl-carousel-small .owl-item img {
     display: block;
-    max-width: 90px;
-    max-height: 120px;
-    width: auto;
-    height: auto;
+    width: 100%;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     height: auto !important;

@@ -8,6 +8,7 @@ global $cawp_config_manager;
 $cawp_config_manager = new cawpConfigurationManager(
     CAWP_OPTIONS,
     array(
+        'version' => 1,
         'ca_host' => 'localhost',
         'ca_database' => 'collective_access',
         'ca_username' => 'collective_access',
