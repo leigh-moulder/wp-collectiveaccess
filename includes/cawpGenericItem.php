@@ -4,7 +4,7 @@ include_once CAWP_DIRECTORY . '/includes/cawpDBConn.php';
 include_once CAWP_DIRECTORY . '/includes/cawpDBUtils.php';
 include_once CAWP_DIRECTORY . '/includes/cawpImage.php';
 
-class cawpGenericItem implements JsonSerializable {
+class cawpGenericItem {
 
     protected $id;
     protected $source_id;

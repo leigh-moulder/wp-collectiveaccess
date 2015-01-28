@@ -229,10 +229,11 @@ function generateObjectLightbox($id) {
 
     <div class="metadata">
         <?php
-            $medium = $object->getMetadata()['work_medium'];
-            $width = $object->getMetadata()['dimensions_width'];
-            $height = $object->getMetadata()['dimensions_height'];
-            $depth = $object->getMetadata()['dimensions_depth'];
+            $metadata = $object->getMetadata();
+            $medium = $metadata['work_medium'];
+            $width = $metadata['dimensions_width'];
+            $height = $metadata['dimensions_height'];
+            $depth = $metadata['dimensions_depth'];
             $show_metadata = ($medium != null) || ($width != null) || ($height != null) ||
                 ($depth != null);
         ?>
