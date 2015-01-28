@@ -147,11 +147,11 @@ function cawp_plugin_options() {
                 </tr>
                 <tr>
                     <td>Collective Access Site URL:</td>
-                    <td><input id="cawp_ca_url" name="cawp_ca_url" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_url') ?>"/></td>
+                    <td><input id="cawp_ca_url" name="cawp_ca_url" type="text" size="50" maxlength="50" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_url') ?>"/></td>
                 </tr>
                 <tr>
                     <td>Collective Access Image path:</td>
-                    <td><input id="cawp_ca_img_url" name="cawp_ca_img_url" type="text" size="30" maxlength="30" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_img_url_path') ?>"/></td>
+                    <td><input id="cawp_ca_img_url" name="cawp_ca_img_url" type="text" size="50" maxlength="50" class="regular-text" value="<?php echo $cawp_config_manager->get('ca_img_url_path') ?>"/></td>
                 </tr>
                 </tbody>
             </table>
